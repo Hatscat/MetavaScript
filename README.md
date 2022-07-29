@@ -5,7 +5,7 @@
 ```ts
 // deps.ts
 
-export * from "https://github.com/Hatscat/tiny-meta-js/raw/main/index.ts";
+export * from "https://raw.githubusercontent.com/Hatscat/tiny-meta-js/main/index.ts";
 ```
 
 ## Setup
