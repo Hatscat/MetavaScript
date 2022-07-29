@@ -1,0 +1,18 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+continuation_indent_size = 4
+curly_bracket_next_line = false
+end_of_line = lf
+indent_brace_style = Stroustrup
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+spaces_around_brackets = outside
+spaces_around_operators = true
+trim_trailing_whitespace = true
