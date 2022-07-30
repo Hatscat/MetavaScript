@@ -1,11 +1,11 @@
-# Tiny Meta JS
+# Meta Tiny JS
 
 ## Usage
 
 ```ts
 // deps.ts
 
-export * from "https://raw.githubusercontent.com/Hatscat/tiny-meta-js/main/index.ts";
+export * from "https://raw.githubusercontent.com/Hatscat/meta-tiny-js/main/index.ts";
 ```
 
 ## Setup
