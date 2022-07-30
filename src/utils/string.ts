@@ -4,10 +4,10 @@ export function findAvailableQuote(text: string): '"' | "'" | "`" | undefined {
 }
 
 export function kebabCase(text: string): string {
-  return text.replaceAll(
-    / |_|([A-Z])/g,
-    (_, char = "") => "-" + char.toLowerCase(),
-  );
+  return text.trim().replaceAll(
+    /(?:\s|_)+|([A-Z]+)/g,
+    (_, chars = "", i) => (i ? "-" : "") + chars.toLowerCase(),
+  ).replaceAll(/\-+/g, "-").replaceAll(/^\-|\-$/g, "");
 }
 
 export function shortestText(...texts: string[]): string {
