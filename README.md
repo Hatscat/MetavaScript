@@ -11,12 +11,24 @@ export * from "https://raw.githubusercontent.com/Hatscat/meta-tiny-js/main/index
 ## Setup
 
 Requirement:
-[`Deno`](https://deno.land/manual@v1.19.3/getting_started/installation)
+[`Deno`](https://deno.land/manual@v1.24.1/getting_started/installation)
 
 ## Commands
 
 - test
 
 ```sh
-deno run all-tests.ts
+deno test
+```
+
+> with coverage
+
+```sh
+deno test --coverage=cov_profile
+```
+
+- test coverage
+
+```sh
+deno coverage cov_profile
 ```
