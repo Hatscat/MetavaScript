@@ -1,5 +1,25 @@
+export function and(...values: unknown[]): string {
+  return values.join("&&");
+}
+
 export function or(...values: unknown[]): string {
   return values.join("||");
+}
+
+export function not(value: unknown): string {
+  return `~${value}`;
+}
+
+export function band(...values: unknown[]): string {
+  return values.join("&");
+}
+
+export function bor(...values: unknown[]): string {
+  return values.join("|");
+}
+
+export function xor(...values: unknown[]): string {
+  return values.join("^");
 }
 
 export function isLower(...values: unknown[]): string {
