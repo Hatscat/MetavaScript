@@ -3,7 +3,7 @@ import { findAvailableQuote, kebabCase } from "./utils/string.ts";
 type ElementProps = {
   tagProps?: Record<string, string>;
   children?: string | string[];
-  closed?: boolean | "self-closed";
+  closed?: boolean;
 };
 
 export function element(
@@ -16,7 +16,7 @@ export function element(
         `${key}=${value}`
       ).join(" ")
       : ""
-  }${closed === "self-closed" ? "/" : ""}>`;
+  }>`;
   const child = Array.isArray(children) ? children.join("") : children;
 
   return `${tag}${child}${closed === true ? `</${tagName}>` : ""}`;
