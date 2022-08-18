@@ -35,7 +35,7 @@ export function execFunc(
   return `${name}(${args})`;
 }
 
-export function assign(...keyValues: string[]): string {
+export function assign(...keyValues: unknown[]): string {
   return keyValues.join("=");
 }
 
