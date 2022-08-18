@@ -7,7 +7,7 @@ export function or(...values: unknown[]): string {
 }
 
 export function not(value: unknown): string {
-  return `~${value}`;
+  return `!${value}`;
 }
 
 export function band(...values: unknown[]): string {
@@ -16,6 +16,10 @@ export function band(...values: unknown[]): string {
 
 export function bor(...values: unknown[]): string {
   return values.join("|");
+}
+
+export function bnot(value: unknown): string {
+  return `~${value}`;
 }
 
 export function xor(...values: unknown[]): string {
