@@ -85,6 +85,10 @@ export function increment(variable: string, before?: boolean): string {
   return before ? `++${variable}` : `${variable}++`;
 }
 
+export function decrement(variable: string, before?: boolean): string {
+  return before ? `--${variable}` : `${variable}--`;
+}
+
 export function funcConstructor(args: string[], body: string) {
   return `Function(${args.map((a) => `'${a}'`)},${body})`;
 }
