@@ -61,3 +61,7 @@ export function expressions(...exps: string[]): string {
   }
   return exps.map((e) => `(${e})`).join(",");
 }
+
+export function abortIf(condition: unknown): string {
+  return `if(${condition})return`;
+}
