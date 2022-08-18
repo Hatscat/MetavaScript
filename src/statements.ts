@@ -23,7 +23,7 @@ export function defineFunc(
 
 export function execFunc(
   name: string,
-  args?: unknown,
+  args?: unknown | unknown[],
   isTemplateLiteral?: boolean,
 ): string {
   if (!args) {
