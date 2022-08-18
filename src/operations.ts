@@ -74,7 +74,7 @@ export function loop(
   { init, condition, body, body2 }: {
     condition: string;
     body?: string;
-    body2?: string;
+    body2?: string | string[];
     init?: string;
   },
 ) {
