@@ -99,3 +99,9 @@ export function templateLiteral(strings: string[], ...keys: unknown[]): string {
 export function quote(q: '"' | "'" | "`" | "${", text: string): string {
   return `${q}${text}${q === "${" ? "}" : q}`;
 }
+
+export function scope(q: "(" | "{" | "[", content: unknown): string {
+  return `${q}${content}${
+    q === "(" ? ")" : q === "{" ? "}" : q === "[" ? "]" : q
+  }`;
+}
