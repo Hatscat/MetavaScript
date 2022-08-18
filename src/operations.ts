@@ -89,7 +89,7 @@ export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
-export function parseInt(value: unknown): string {
+export function castInt(value: unknown): string {
   return `${value}|0`;
 }
 
