@@ -1,3 +1,23 @@
+export function add(...values: unknown[]): string {
+  return values.join("+");
+}
+
+export function sub(...values: unknown[]): string {
+  return values.join("-");
+}
+
+export function mul(...values: unknown[]): string {
+  return values.join("*");
+}
+
+export function div(...values: unknown[]): string {
+  return values.join("/");
+}
+
+export function mod(...values: unknown[]): string {
+  return values.join("%");
+}
+
 export function and(...values: unknown[]): string {
   return values.join("&&");
 }
