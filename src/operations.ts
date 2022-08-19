@@ -92,6 +92,9 @@ export function decrement(variable: string, before?: boolean): string {
 export function castInt(value: unknown): string {
   return `${value}|0`;
 }
+export function round(value: number): string {
+  return `${value}+.5|0`;
+}
 
 export function funcConstructor(args: string[], body: string) {
   return `Function(${args.map((a) => `'${a}'`)},${body})`;
