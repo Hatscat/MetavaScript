@@ -56,10 +56,7 @@ export function statements(...sts: string[]): string {
 }
 
 export function expressions(...exps: string[]): string {
-  if (exps.length === 1) {
-    return exps[0];
-  }
-  return exps.map((e) => `(${e})`).join(",");
+  return exps.join(",");
 }
 
 export function abortIf(condition: unknown): string {
