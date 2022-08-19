@@ -89,9 +89,14 @@ export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
+export function castNumber(value: unknown): string {
+  return `+${value}`;
+}
+
 export function castInt(value: unknown): string {
   return `${value}|0`;
 }
+
 export function round(value: number): string {
   return `${value}+.5|0`;
 }
