@@ -63,9 +63,9 @@ export function isDifferent(...values: unknown[]): string {
 }
 
 export function ifElse(
-  condition: string,
-  ifTrue: string,
-  ifFalse: string,
+  condition: unknown,
+  ifTrue: unknown,
+  ifFalse: unknown,
 ): string {
   return `${condition}?${ifTrue}:${ifFalse}`;
 }
