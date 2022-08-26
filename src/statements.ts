@@ -62,3 +62,7 @@ export function expressions(...exps: string[]): string {
 export function abortIf(condition: unknown): string {
   return `if(${condition})return`;
 }
+
+export function ifThen(condition: unknown, then: unknown): string {
+  return `if(${condition})${then}`;
+}
