@@ -1,9 +1,9 @@
 import { assertEquals } from "../dev-deps.ts";
-import { castBoolean, Stringify } from "./operations.ts";
+import { castBoolean, stringify } from "./operations.ts";
 import { isArray, isFunction, isNumber, isString } from "./primitives.ts";
 
 Deno.test("isString()", () => {
-  assertEquals(evalAsBool(isString(Stringify("hello world!"))), true);
+  assertEquals(evalAsBool(isString(stringify("hello world!"))), true);
   assertEquals(evalAsBool(isString(true)), false);
   assertEquals(evalAsBool(isString(42)), false);
   assertEquals(evalAsBool(isString("['a','b','c']")), false);
@@ -11,7 +11,7 @@ Deno.test("isString()", () => {
 });
 
 Deno.test("isNumber()", () => {
-  assertEquals(evalAsBool(isNumber(Stringify("hello world!"))), false);
+  assertEquals(evalAsBool(isNumber(stringify("hello world!"))), false);
   assertEquals(evalAsBool(isNumber(true)), false);
   assertEquals(evalAsBool(isNumber(42)), true);
   assertEquals(evalAsBool(isNumber("[1,2,3]")), false);
@@ -19,7 +19,7 @@ Deno.test("isNumber()", () => {
 });
 
 Deno.test("isArray()", () => {
-  assertEquals(evalAsBool(isArray(Stringify("hello world!"))), false);
+  assertEquals(evalAsBool(isArray(stringify("hello world!"))), false);
   assertEquals(evalAsBool(isArray(true)), false);
   assertEquals(evalAsBool(isArray(42)), false);
   assertEquals(evalAsBool(isArray("[1,'a',false]")), true);
@@ -27,7 +27,7 @@ Deno.test("isArray()", () => {
 });
 
 Deno.test("isFunction()", () => {
-  assertEquals(evalAsBool(isFunction(Stringify("hello world!"))), false);
+  assertEquals(evalAsBool(isFunction(stringify("hello world!"))), false);
   assertEquals(evalAsBool(isFunction(true)), false);
   assertEquals(evalAsBool(isFunction(42)), false);
   assertEquals(evalAsBool(isFunction("[]")), false);
