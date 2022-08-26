@@ -1,6 +1,6 @@
 type FunctionDefinition = {
   args?: unknown[];
-  body: string;
+  body: unknown | unknown[];
   safe?: boolean;
 };
 
@@ -9,12 +9,12 @@ export function defineFunc(
   { args = [], body, safe = true }: FunctionDefinition,
 ): string {
   const enclosedArgs = args.length === 0
-    ? "e"
+    ? "_"
     : args.length === 1 && !String(args[0]).includes("=")
     ? args[0]
     : `(${args})`;
 
-  return /while|for|if|switch|return|[{;]/.test(body)
+  return /while|for|if|switch|return|[{;]/.test(String(body))
     ? `${name}=${enclosedArgs}=>{${body}}`
     : safe
     ? `${name}=${enclosedArgs}=>(${body})`
