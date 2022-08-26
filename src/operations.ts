@@ -72,10 +72,10 @@ export function ifElse(
 
 export function loop(
   { init, condition, body, body2 }: {
-    condition: string;
-    body?: string;
+    condition: string | string[];
+    body?: string | string[];
     body2?: string | string[];
-    init?: string;
+    init?: string | string[];
   },
 ) {
   return `for(${init ?? ""};${condition};${body2 ?? ""})${body ?? ""}`;
