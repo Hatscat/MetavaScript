@@ -89,6 +89,10 @@ export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
+export function castBoolean(value: unknown): string {
+  return `!!${value}`;
+}
+
 export function castNumber(value: unknown): string {
   return `+${value}`;
 }
