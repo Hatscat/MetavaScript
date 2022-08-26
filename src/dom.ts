@@ -32,7 +32,7 @@ export function setInnerHtml(
   if (quote) {
     return `${elementId}.innerHTML=${quote}${innerHtml}${quote}`;
   }
-  return `${elementId}.innerHTML="${innerHtml.replaceAll('"', '\\"')}"`;
+  return `${elementId}.innerHTML='${innerHtml.replaceAll("'", "\\'")}'`;
 }
 
 export function formatStylesheet(

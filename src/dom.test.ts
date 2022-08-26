@@ -35,7 +35,7 @@ Deno.test("setInnerHtml()", () => {
       "body",
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
-    'body.innerHTML="<a href=#>link"',
+    "body.innerHTML='<a href=#>link'",
   );
 
   assertEquals(
@@ -47,7 +47,7 @@ Deno.test("setInnerHtml()", () => {
         "!",
       ],
     ),
-    'b.innerHTML="<p>Hello <span>World!"',
+    "b.innerHTML='<p>Hello <span>World!'",
   );
 
   assertEquals(
@@ -55,7 +55,7 @@ Deno.test("setInnerHtml()", () => {
       "b",
       element("p", { children: "Hello '\"`World`\"'!", closed: true }),
     ),
-    'b.innerHTML="<p>Hello \'\\"`World`\\"\'!</p>"',
+    "b.innerHTML='<p>Hello \\'\"`World`\"\\'!</p>'",
   );
 });
 

@@ -1,3 +1,5 @@
+import { findAvailableQuote } from "./utils/string.ts";
+
 export function add(...values: unknown[]): string {
   return values.join("+");
 }
@@ -87,6 +89,11 @@ export function increment(variable: string, before?: boolean): string {
 
 export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
+}
+
+export function Stringify(value: unknown): string {
+  const quote = findAvailableQuote(String(value)) ?? "\\'";
+  return `${quote}${value}${quote}`;
 }
 
 export function castBoolean(value: unknown): string {

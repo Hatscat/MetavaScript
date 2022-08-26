@@ -2,9 +2,9 @@ import { assertEquals } from "../../dev-deps.ts";
 import { findAvailableQuote, kebabCase, shortestText } from "./string.ts";
 
 Deno.test("findAvailableQuote()", () => {
-  assertEquals(findAvailableQuote("Hello World!"), '"');
+  assertEquals(findAvailableQuote("Hello World!"), "'");
   assertEquals(findAvailableQuote("Hello 'World'!"), '"');
-  assertEquals(findAvailableQuote("Hello `World`!"), '"');
+  assertEquals(findAvailableQuote("Hello `World`!"), "'");
   assertEquals(findAvailableQuote('Hello "World"!'), "'");
   assertEquals(findAvailableQuote("Hello \"'World'\"!"), "`");
   assertEquals(findAvailableQuote("Hello \"'`World`'\"!"), undefined);
