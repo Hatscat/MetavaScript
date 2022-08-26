@@ -20,6 +20,10 @@ export function mod(...values: unknown[]): string {
   return values.join("%");
 }
 
+export function pow(...values: unknown[]): string {
+  return values.join("**");
+}
+
 export function and(...values: unknown[]): string {
   return values.join("&&");
 }
