@@ -2,9 +2,9 @@ export const UNDEFINED = "[]._";
 
 export const INFINITY = "1/0";
 
-export const TRUE = "!0";
+export const TRUE = 1;
 
-export const FALSE = "!1";
+export const FALSE = 0;
 
 export function isString(value: unknown): string {
   return `${value}.big`;
