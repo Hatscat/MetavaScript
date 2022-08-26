@@ -1,12 +1,6 @@
 import { assertEquals } from "../../dev-deps.ts";
 import { findAvailableQuote, kebabCase, shortestText } from "./string.ts";
 
-export function utilsStringTest() {
-  console.log("# utils/string");
-
-  console.assert(findAvailableQuote('"hello"') === "'", "oups");
-}
-
 Deno.test("findAvailableQuote()", () => {
   assertEquals(findAvailableQuote("Hello World!"), '"');
   assertEquals(findAvailableQuote("Hello 'World'!"), '"');
