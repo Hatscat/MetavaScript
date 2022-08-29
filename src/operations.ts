@@ -95,11 +95,6 @@ export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
-export function stringify(value: unknown): string {
-  const quote = findAvailableQuote(String(value)) ?? "\\'";
-  return `${quote}${value}${quote}`;
-}
-
 export function castBoolean(value: unknown): string {
   return `!!${value}`;
 }
