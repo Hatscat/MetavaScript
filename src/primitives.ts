@@ -1,4 +1,4 @@
-import { findAvailableQuote } from "../index.ts";
+import { findAvailableQuote } from "./utils/string.ts";
 
 export const UNDEFINED = "[]._";
 
