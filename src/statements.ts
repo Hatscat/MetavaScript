@@ -1,3 +1,5 @@
+import { removeEmptyItems } from "./utils/array.ts";
+
 type FunctionDefinition = {
   args?: unknown[];
   body: unknown | unknown[];
@@ -52,11 +54,11 @@ export function output(value: unknown, safe = true): string {
 }
 
 export function statements(...sts: string[]): string {
-  return sts.join(";");
+  return removeEmptyItems(sts).join(";");
 }
 
 export function expressions(...exps: string[]): string {
-  return exps.join(",");
+  return removeEmptyItems(exps).join(",");
 }
 
 export function abortIf(condition: unknown): string {
