@@ -1,8 +1,9 @@
 import { removeFalsyItems } from "./utils/array.ts";
+import { Primitive, Printable } from "./utils/type.ts";
 
 type FunctionDefinition = {
-  args?: unknown[];
-  body: unknown | unknown[];
+  args?: Printable[];
+  body: Printable;
   safe?: boolean;
 };
 
@@ -25,7 +26,7 @@ export function defineFunc(
 
 export function execFunc(
   name: string,
-  args?: unknown | unknown[],
+  args?: Printable,
   isTemplateLiteral?: boolean,
 ): string {
   if (!args) {
@@ -37,7 +38,7 @@ export function execFunc(
   return `${name}(${args})`;
 }
 
-export function assign(...keyValues: unknown[]): string {
+export function assign(...keyValues: Primitive[]): string {
   return keyValues.join("=");
 }
 
@@ -45,26 +46,29 @@ export function prop(...keys: string[]): string {
   return keys.join(".");
 }
 
-export function dynamicProp(obj: string, ...keys: string[]): string {
+export function dynamicProp(
+  obj: string,
+  ...keys: Array<string | number>
+): string {
   return obj + keys.map((k) => `[${k}]`);
 }
 
-export function output(value: unknown, safe = true): string {
+export function output(value: Printable, safe = true): string {
   return safe ? `return(${value})` : `return ${value}`;
 }
 
-export function statements(...sts: unknown[]): string {
+export function statements(...sts: Printable[]): string {
   return removeFalsyItems(sts).join(";");
 }
 
-export function expressions(...exps: unknown[]): string {
+export function expressions(...exps: Printable[]): string {
   return removeFalsyItems(exps).join(",");
 }
 
-export function abortIf(condition: unknown): string {
+export function abortIf(condition: Printable): string {
   return `if(${condition})return`;
 }
 
-export function ifThen(condition: unknown, then: unknown): string {
+export function ifThen(condition: Printable, then: Printable): string {
   return `if(${condition})${then}`;
 }
