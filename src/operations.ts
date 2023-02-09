@@ -1,75 +1,77 @@
-export function add(...values: unknown[]): string {
+import { Printable } from "./utils/type.ts";
+
+export function add(...values: Printable[]): string {
   return values.join("+");
 }
 
-export function sub(...values: unknown[]): string {
+export function sub(...values: Printable[]): string {
   return values.join("-");
 }
 
-export function mul(...values: unknown[]): string {
+export function mul(...values: Printable[]): string {
   return values.join("*");
 }
 
-export function div(...values: unknown[]): string {
+export function div(...values: Printable[]): string {
   return values.join("/");
 }
 
-export function mod(...values: unknown[]): string {
+export function mod(...values: Printable[]): string {
   return values.join("%");
 }
 
-export function pow(...values: unknown[]): string {
+export function pow(...values: Printable[]): string {
   return values.join("**");
 }
 
-export function and(...values: unknown[]): string {
+export function and(...values: Printable[]): string {
   return values.join("&&");
 }
 
-export function or(...values: unknown[]): string {
+export function or(...values: Printable[]): string {
   return values.join("||");
 }
 
-export function not(value: unknown): string {
+export function not(value: Printable): string {
   return `!${value}`;
 }
 
-export function band(...values: unknown[]): string {
+export function band(...values: Printable[]): string {
   return values.join("&");
 }
 
-export function bor(...values: unknown[]): string {
+export function bor(...values: Printable[]): string {
   return values.join("|");
 }
 
-export function bnot(value: unknown): string {
+export function bnot(value: Printable): string {
   return `~${value}`;
 }
 
-export function xor(...values: unknown[]): string {
+export function xor(...values: Printable[]): string {
   return values.join("^");
 }
 
-export function isLower(...values: unknown[]): string {
+export function isLower(...values: Printable[]): string {
   return values.join("<");
 }
 
-export function isGreater(...values: unknown[]): string {
+export function isGreater(...values: Printable[]): string {
   return values.join(">");
 }
 
-export function isEqual(...values: unknown[]): string {
+export function isEqual(...values: Printable[]): string {
   return values.join("==");
 }
 
-export function isDifferent(...values: unknown[]): string {
+export function isDifferent(...values: Printable[]): string {
   return values.join("^");
 }
 
 export function ifElse(
-  condition: unknown,
-  ifTrue: unknown,
-  ifFalse: unknown,
+  condition: Printable,
+  ifTrue: Printable,
+  ifFalse: Printable,
 ): string {
   return `${condition}?${ifTrue}:${ifFalse}`;
 }
@@ -93,15 +95,15 @@ export function decrement(variable: string, before?: boolean): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
-export function castBoolean(value: unknown): string {
+export function castBoolean(value: Printable): string {
   return `!!${value}`;
 }
 
-export function castNumber(value: unknown): string {
+export function castNumber(value: Printable): string {
   return `+${value}`;
 }
 
-export function castInt(value: unknown): string {
+export function castInt(value: Printable): string {
   return `${value}|0`;
 }
 
@@ -113,7 +115,10 @@ export function funcConstructor(args: string[], body: string) {
   return `Function(${args.map((a) => `'${a}'`)},${body})`;
 }
 
-export function templateLiteral(strings: string[], ...keys: unknown[]): string {
+export function templateLiteral(
+  strings: string[],
+  ...keys: Printable[]
+): string {
   return `\`${
     strings.reduce((literal, str, i) =>
       `${literal}${str}${keys[i] ? `\${${keys[i]}}` : ""}`, "")
@@ -124,7 +129,7 @@ export function quote(q: '"' | "'" | "`" | "${", text: string): string {
   return `${q}${text}${q === "${" ? "}" : q}`;
 }
 
-export function scope(q: "(" | "{" | "[", content: unknown): string {
+export function scope(q: "(" | "{" | "[", content: Printable): string {
   return `${q}${content}${
     q === "(" ? ")" : q === "{" ? "}" : q === "[" ? "]" : q
   }`;
