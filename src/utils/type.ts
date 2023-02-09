@@ -13,3 +13,9 @@ export enum JsType {
 export function getJsType(value: unknown): JsType {
   return Object.prototype.toString.call(value) as JsType;
 }
+
+export type Primitive = string | number | boolean;
+
+export type MaybePrimitive = Primitive | null | undefined;
+
+export type Printable = Primitive | Primitive[];
