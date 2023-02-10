@@ -27,7 +27,7 @@ export function defineFunc(
 export function execFunc(
   name: string,
   args?: Printable,
-  isTemplateLiteral?: boolean,
+  { isTemplateLiteral } = { isTemplateLiteral: false },
 ): string {
   if (!args) {
     return `${name}()`;
@@ -53,7 +53,7 @@ export function dynamicProp(
   return obj + keys.map((k) => `[${k}]`);
 }
 
-export function output(value: Printable, safe = true): string {
+export function output(value: Printable, { safe } = { safe: true }): string {
   return safe ? `return(${value})` : `return ${value}`;
 }
 

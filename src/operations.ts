@@ -87,11 +87,17 @@ export function loop(
   return `for(${init ?? ""};${condition};${body2 ?? ""})${body ?? ""}`;
 }
 
-export function increment(variable: string, before?: boolean): string {
+export function increment(
+  variable: string,
+  { before } = { before: false },
+): string {
   return before ? `++${variable}` : `${variable}++`;
 }
 
-export function decrement(variable: string, before?: boolean): string {
+export function decrement(
+  variable: string,
+  { before } = { before: false },
+): string {
   return before ? `--${variable}` : `${variable}--`;
 }
 
@@ -116,11 +122,11 @@ export function funcConstructor(args: string[], body: string) {
 }
 
 export function templateLiteral(
-  strings: string[],
+  stringParts: string[],
   ...keys: Printable[]
 ): string {
   return `\`${
-    strings.reduce((literal, str, i) =>
+    stringParts.reduce((literal, str, i) =>
       `${literal}${str}${keys[i] ? `\${${keys[i]}}` : ""}`, "")
   }\``;
 }
