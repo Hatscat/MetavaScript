@@ -49,7 +49,7 @@ Deno.test("provideTmpVarNames()", () => {
 
 Deno.test("replaceAllTmpVarNames()", () => {
   // Given
-  const aBuild = `$$global$$ = "abc";
+  const aSourceCode = `$$global$$ = "abc";
   $$state$$ = { $$key.answer$$: 42, $$key.other$$: "73" }
   $$state$$.$$key.answer$$ ? true : false
   return $$state$$`;
@@ -59,8 +59,8 @@ Deno.test("replaceAllTmpVarNames()", () => {
   );
 
   // When
-  const result1 = replaceAllTmpVarNames(aBuild);
-  const result2 = replaceAllTmpVarNames(aBuild, someUnavailableChars);
+  const result1 = replaceAllTmpVarNames(aSourceCode);
+  const result2 = replaceAllTmpVarNames(aSourceCode, someUnavailableChars);
 
   // Then
   assertEquals(

@@ -27,7 +27,7 @@ export function provideTmpVarNames<VN extends VarNames>(
 }
 
 export function replaceAllTmpVarNames(
-  build: string,
+  sourceCode: string,
   unavailableCharacters: string[] = Object.values(ReservedCharacters),
 ): string {
   // Step 1: Compute short and long available variable names
@@ -44,7 +44,7 @@ export function replaceAllTmpVarNames(
   const sortedVarNames: readonly string[] = shortVarNames.concat(longVarNames);
 
   // Step 2: Split build string to get current variable names at odd indexes
-  const splittedBuild = build.split(TMP_VAR_EDGE);
+  const splittedBuild = sourceCode.split(TMP_VAR_EDGE);
 
   // Step 3: Count and sort variable usage to use short var names for most used ones
   const tmpVarCountByName: { [currentVar: string]: number } = {};
