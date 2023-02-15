@@ -1,11 +1,11 @@
-# Meta Tiny JS
+# MetavaScript
 
 ## Usage
 
 ```ts
 // deps.ts
 
-export * from "https://raw.githubusercontent.com/Hatscat/meta-tiny-js/main/index.ts";
+export * from "https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts";
 ```
 
 ## Setup
