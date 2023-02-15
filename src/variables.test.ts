@@ -65,15 +65,15 @@ Deno.test("replaceAllTmpVarNames()", () => {
   // Then
   assertEquals(
     result1,
-    `b = "abc";
-  $ = { a: 42, c: "73" }
-  $.a ? true : false
-  return $`,
+    `c = "abc";
+  a = { b: 42, d: "73" }
+  a.b ? true : false
+  return a`,
   );
   assertEquals(
     result2,
-    `$0 = "abc";
-  Y = { Z: 42, $1: "73" }
+    `a0 = "abc";
+  Y = { Z: 42, a1: "73" }
   Y.Z ? true : false
   return Y`,
   );

@@ -3,7 +3,7 @@ export enum ReservedCharacters {
 }
 
 export const AVAILABLE_CHAR_FOR_VARIABLES =
-  "$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const TMP_VAR_EDGE = "$$";
 
