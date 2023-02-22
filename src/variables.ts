@@ -1,28 +1,30 @@
+import { isPrimitive, Primitive } from "./utils/type.ts";
+
 export enum ReservedCharacters {
   EmptyArg = "_",
 }
 
-export const AVAILABLE_CHAR_FOR_VARIABLES =
+const AVAILABLE_CHAR_FOR_VARIABLES =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const TMP_VAR_EDGE = "$$";
 
-type VarNames = {
-  [key: string]: string | VarNames;
+export type VarNames = {
+  [key: string]: Primitive | VarNames;
 };
 
-export function provideTmpVarNames<VN extends VarNames>(
-  record: VN,
+export function provideTmpVarNames<T extends VarNames>(
+  record: T,
   _prefix = "",
-): VN {
+): T {
   return Object.entries(record).reduce(
-    (result: VN, [key, value]) => ({
+    (result: T, [key, value]) => ({
       ...result,
-      [key]: typeof value === "string"
+      [key]: isPrimitive(value)
         ? `${TMP_VAR_EDGE}${_prefix}${key}${TMP_VAR_EDGE}`
         : provideTmpVarNames(value, `${_prefix}${key}.`),
     }),
-    {} as VN,
+    {} as T,
   );
 }
 

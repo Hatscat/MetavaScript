@@ -1,9 +1,5 @@
 import { assertEquals } from "../dev-deps.ts";
-import {
-  AVAILABLE_CHAR_FOR_VARIABLES,
-  provideTmpVarNames,
-  replaceAllTmpVarNames,
-} from "./variables.ts";
+import { provideTmpVarNames, replaceAllTmpVarNames } from "./variables.ts";
 
 Deno.test("provideTmpVarNames()", () => {
   // Given
@@ -54,9 +50,10 @@ Deno.test("replaceAllTmpVarNames()", () => {
   $$state$$.$$key.answer$$ ? true : false
   return $$state$$`;
   // All AVAILABLE_CHAR_FOR_VARIABLES except the 2 last ones ('Y' and 'Z')
-  const someUnavailableChars = AVAILABLE_CHAR_FOR_VARIABLES.slice(0, -2).split(
-    "",
-  );
+  const someUnavailableChars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX".split(
+      "",
+    );
 
   // When
   const result1 = replaceAllTmpVarNames(aSourceCode);
