@@ -101,15 +101,15 @@ Deno.test("initVariables()", () => {
   const varValues = {
     state: {
       user: {
-        id: "73",
+        id: 73,
         email: Text("foo@bar.com"),
         plan: {
           type: Text("free"),
-          price: "0",
+          price: 0,
         },
       },
     },
-    score: "42",
+    score: 42,
     items: List(),
   };
 
@@ -128,15 +128,15 @@ Deno.test("provideTmpVarNames() + initVariables() + replaceAllTmpVarNames()", ()
   const varValues = {
     state: {
       user: {
-        id: "73",
+        id: 73,
         email: Text("foo@bar.com"),
         plan: {
           type: Text("free"),
-          price: "0",
+          price: 0,
         },
       },
     },
-    score: "42",
+    score: 42,
     items: List(),
   };
 

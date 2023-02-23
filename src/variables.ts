@@ -1,5 +1,6 @@
 import { assign, statements } from "./statements.ts";
 import { getNestedValue } from "./utils/object.ts";
+import { Primitive } from "./utils/type.ts";
 
 export enum ReservedCharacters {
   EmptyArg = "_",
@@ -11,7 +12,7 @@ const AVAILABLE_CHAR_FOR_VARIABLES =
 const TMP_VAR_EDGE = "$$";
 
 export type VarRecord = {
-  [key: string]: string | VarRecord;
+  [key: string]: Primitive | VarRecord;
 };
 
 export function provideTmpVarNames<T extends VarRecord>(
