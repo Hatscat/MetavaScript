@@ -9,6 +9,8 @@ export const TRUE = 1;
 
 export const FALSE = 0;
 
+export const NOTHING = 0;
+
 export function Text(value: Printable): string {
   const quote = findAvailableQuote(String(value)) ?? "\\'";
   return `${quote}${value}${quote}`;
