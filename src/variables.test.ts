@@ -1,5 +1,10 @@
 import { assertEquals } from "../dev-deps.ts";
-import { provideTmpVarNames, replaceAllTmpVarNames } from "./variables.ts";
+import { List, Text } from "./primitives.ts";
+import {
+  initVariables,
+  provideTmpVarNames,
+  replaceAllTmpVarNames,
+} from "./variables.ts";
 
 Deno.test("provideTmpVarNames()", () => {
   // Given
@@ -73,5 +78,76 @@ Deno.test("replaceAllTmpVarNames()", () => {
   Y = { Z: 42, a1: "73" }
   Y.Z ? true : false
   return Y`,
+  );
+});
+
+Deno.test("initVariables()", () => {
+  // Given
+  const varNames = {
+    state: {
+      user: {
+        id: "userId",
+        email: "userEmail",
+        plan: {
+          type: "userPlanType",
+          price: "userPlanPrice",
+        },
+      },
+    },
+    score: "score",
+    items: "items",
+  };
+
+  const varValues = {
+    state: {
+      user: {
+        id: "73",
+        email: Text("foo@bar.com"),
+        plan: {
+          type: Text("free"),
+          price: "0",
+        },
+      },
+    },
+    score: "42",
+    items: List(),
+  };
+
+  // When
+  const result = initVariables(varNames, varValues);
+
+  // Then
+  assertEquals(
+    result,
+    "userId=73;userEmail='foo@bar.com';userPlanType='free';userPlanPrice=0;score=42;items=[]",
+  );
+});
+
+Deno.test("provideTmpVarNames() + initVariables() + replaceAllTmpVarNames()", () => {
+  // Given
+  const varValues = {
+    state: {
+      user: {
+        id: "73",
+        email: Text("foo@bar.com"),
+        plan: {
+          type: Text("free"),
+          price: "0",
+        },
+      },
+    },
+    score: "42",
+    items: List(),
+  };
+
+  // When
+  const varNames = provideTmpVarNames(varValues);
+  const initScript = initVariables(varNames, varValues);
+  const result = replaceAllTmpVarNames(initScript);
+
+  // Then
+  assertEquals(
+    result,
+    "a=73;b='foo@bar.com';c='free';d=0;e=42;f=[]",
   );
 });

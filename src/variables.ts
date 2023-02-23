@@ -1,4 +1,5 @@
-import { isPrimitive, Primitive } from "./utils/type.ts";
+import { assign, statements } from "./statements.ts";
+import { getNestedValue } from "./utils/object.ts";
 
 export enum ReservedCharacters {
   EmptyArg = "_",
@@ -9,20 +10,20 @@ const AVAILABLE_CHAR_FOR_VARIABLES =
 
 const TMP_VAR_EDGE = "$$";
 
-export type VarNames = {
-  [key: string]: Primitive | VarNames;
+export type VarRecord = {
+  [key: string]: string | VarRecord;
 };
 
-export function provideTmpVarNames<T extends VarNames>(
+export function provideTmpVarNames<T extends VarRecord>(
   record: T,
   _prefix = "",
 ): T {
   return Object.entries(record).reduce(
     (result: T, [key, value]) => ({
       ...result,
-      [key]: isPrimitive(value)
-        ? `${TMP_VAR_EDGE}${_prefix}${key}${TMP_VAR_EDGE}`
-        : provideTmpVarNames(value, `${_prefix}${key}.`),
+      [key]: typeof value === "object"
+        ? provideTmpVarNames(value, `${_prefix}${key}.`)
+        : `${TMP_VAR_EDGE}${_prefix}${key}${TMP_VAR_EDGE}`,
     }),
     {} as T,
   );
@@ -75,4 +76,21 @@ export function replaceAllTmpVarNames(
   }
 
   return splittedBuild.join("");
+}
+
+export function initVariables(
+  varNames: VarRecord,
+  varValues: VarRecord,
+  _keys: string[] = [],
+): string {
+  return Object.entries(varNames).reduce(
+    (result: string, [key, varName]) =>
+      statements(
+        result,
+        typeof varName === "object"
+          ? initVariables(varName, varValues, [..._keys, key])
+          : assign(varName, String(getNestedValue(varValues, [..._keys, key]))),
+      ),
+    "",
+  );
 }

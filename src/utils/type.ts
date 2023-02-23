@@ -19,8 +19,3 @@ export type Primitive = string | number | boolean;
 export type MaybePrimitive = Primitive | null | undefined;
 
 export type Printable = Primitive | Primitive[];
-
-export function isPrimitive(value: unknown): value is Primitive {
-  return typeof value === "string" || typeof value === "number" ||
-    typeof value === "boolean";
-}
