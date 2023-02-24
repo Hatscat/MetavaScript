@@ -27,7 +27,7 @@ export function defineFunc(
 
 export function execFunc(
   name: string,
-  args?: Printable,
+  args?: Primitive | Primitive[],
   { isTemplateLiteral } = { isTemplateLiteral: false },
 ): string {
   if (!args) {
