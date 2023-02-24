@@ -19,3 +19,15 @@ export type Primitive = string | number | boolean;
 export type MaybePrimitive = Primitive | null | undefined;
 
 export type Printable = Primitive | Primitive[];
+
+export function isPrimitive(value: unknown): value is Primitive {
+  return typeof value === "string" || typeof value === "number" ||
+    typeof value === "boolean";
+}
+
+export function isRecord(
+  value: unknown,
+): value is Record<string | number, unknown> {
+  const type = getJsType(value);
+  return type === JsType.Array || type === JsType.Object;
+}
