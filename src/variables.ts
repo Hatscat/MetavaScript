@@ -1,6 +1,6 @@
 import { assign, statements } from "./statements.ts";
 import { getNestedValue } from "./utils/object.ts";
-import { Primitive } from "./utils/type.ts";
+import { isRecord, Primitive } from "./utils/type.ts";
 
 export enum ReservedCharacters {
   EmptyArg = "_",
@@ -22,7 +22,7 @@ export function provideTmpVarNames<T extends VarRecord>(
   return Object.entries(record).reduce(
     (result: T, [key, value]) => ({
       ...result,
-      [key]: typeof value === "object"
+      [key]: isRecord(value)
         ? provideTmpVarNames(value, `${_prefix}${key}.`)
         : `${TMP_VAR_EDGE}${_prefix}${key}${TMP_VAR_EDGE}`,
     }),
@@ -88,7 +88,7 @@ export function initVariables(
     (result: string, [key, varName]) =>
       statements(
         result,
-        typeof varName === "object"
+        isRecord(varName)
           ? initVariables(varName, varValues, [..._keys, key])
           : assign(varName, String(getNestedValue(varValues, [..._keys, key]))),
       ),
