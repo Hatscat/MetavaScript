@@ -6,6 +6,7 @@ import {
   isNumber,
   isString,
   List,
+  Record,
   Text,
 } from "./primitives.ts";
 
@@ -39,6 +40,34 @@ Deno.test("isFunction()", () => {
   assertEquals(evalAsBool(isFunction(42)), false);
   assertEquals(evalAsBool(isFunction(List())), false);
   assertEquals(evalAsBool(isFunction("Function")), true);
+});
+
+Deno.test("Record()", () => {
+  // Given
+  const anOject = {
+    abc: 1,
+    cbd: [true, 2, "AAA", null],
+    fds: {
+      aze: 42,
+      vcs: [
+        {
+          aze: [1, 2, [345, [6, 7]]],
+        },
+        undefined,
+        false,
+      ],
+      ert: {
+        hjk: {
+          a: "true",
+        },
+      },
+    },
+  };
+
+  // Then
+  const expected =
+    "{abc:1,cbd:[true,2,'AAA',null],fds:{aze:42,vcs:[{aze:[1,2,[345,[6,7]]]},undefined,false],ert:{hjk:{a:'true'}}}}";
+  assertEquals(Record(anOject), expected);
 });
 
 function evalAsBool(expression: string): boolean {
