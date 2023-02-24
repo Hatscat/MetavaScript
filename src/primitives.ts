@@ -39,22 +39,22 @@ export function Record(obj: Record<string | number, unknown>): string {
     }}`;
 }
 
-export function isString(value: Printable): string {
+export function checkIfString(value: Printable): string {
   return `(${value}).big`;
 }
 
-export function isNumber(value: Printable): string {
+export function checkIfNumber(value: Printable): string {
   return `(${value}).toFixed`;
 }
 
-export function isArray(value: Printable): string {
+export function checkIfArray(value: Printable): string {
   return `(${value}).pop`;
 }
 
-export function isFunction(value: Printable): string {
+export function checkIfFunction(value: Printable): string {
   return `(${value}).call`;
 }
 
-export function isTextNode(value: Printable): string {
+export function checkIfTextNode(value: Printable): string {
   return `(${value}).data`;
 }
