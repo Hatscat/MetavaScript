@@ -30,13 +30,15 @@ export function execFunc(
   args?: Primitive | Primitive[],
   { isTemplateLiteral } = { isTemplateLiteral: false },
 ): string {
+  const wrappedName = /function\b|=/.test(name) ? `(${name})` : name;
+
   if (!args) {
-    return `${name}()`;
+    return `${wrappedName}()`;
   }
   if (isTemplateLiteral) {
-    return `${name}\`${args}\``;
+    return `${wrappedName}\`${args}\``;
   }
-  return `${name}(${args})`;
+  return `${wrappedName}(${args})`;
 }
 
 export function assign(...keyValues: Primitive[]): string {
@@ -71,5 +73,5 @@ export function abortIf(condition: Printable): string {
 }
 
 export function ifThen(condition: Printable, then: Printable): string {
-  return `if(${condition})${then}`;
+  return `if(${condition})${/;/.test(String(then)) ? `{${then}}` : then}`;
 }
