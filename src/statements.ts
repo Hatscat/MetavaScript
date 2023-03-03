@@ -41,7 +41,7 @@ export function execFunc(
   return `${wrappedName}(${args})`;
 }
 
-export function assign(...keyValues: Primitive[]): string {
+export function assign(...keyValues: [...string[], Primitive]): string {
   return keyValues.join("=");
 }
 
