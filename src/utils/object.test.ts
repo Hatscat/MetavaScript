@@ -17,27 +17,27 @@ const anObject = {
 
 Deno.test("getNestedValue()", () => {
   assertEquals(
-    getNestedValue(anObject, []),
+    getNestedValue(anObject),
     anObject,
   );
 
   assertEquals(
-    getNestedValue(anObject, ["score"]),
+    getNestedValue(anObject, "score"),
     42,
   );
 
   assertEquals(
-    getNestedValue(anObject, ["state", "user", "email"]),
+    getNestedValue(anObject, "state", "user", "email"),
     "foo@bar.com",
   );
 
   assertEquals(
-    getNestedValue(anObject, ["state", "user", "plan"]),
+    getNestedValue(anObject, "state", "user", "plan"),
     anObject.state.user.plan,
   );
 
   assertEquals(
-    getNestedValue(anObject, ["state", "user", "plan", "type"]),
+    getNestedValue(anObject, "state", "user", "plan", "type"),
     "free",
   );
 });
