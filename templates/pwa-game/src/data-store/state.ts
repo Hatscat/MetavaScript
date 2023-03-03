@@ -1,31 +1,36 @@
 import { config } from "../config.ts";
-import { List, sub } from "../deps.ts";
+import { generateTmpVarName, List, sub } from "../deps.ts";
 
 export const enum GameState {
-  Pause = 0,
-  Play = 1,
-  GameOver = 2,
+  Play = "1",
+  GameOver = "2",
 }
 
 export const initialState = {
-  gameState: GameState.Pause,
+  gameState: GameState.Play,
+  time: "0",
   canvas: {
     width: "innerWidth",
     height: sub("innerHeight", config.headerHeight),
   },
   player: {
+    radius: String(config.player.radius),
     pos: {
-      x: 0,
-      y: 0,
+      x: String(config.player.positionX),
+      y: "0",
     },
     bullets: List(),
   },
   target: {
     pos: {
-      x: 0,
-      y: 0,
+      get x(): string {
+        return sub(
+          generateTmpVarName("state.canvas.width"),
+          config.target.offsetX,
+        );
+      },
+      y: "0",
     },
-    speed: 2,
   },
 } as const;
 

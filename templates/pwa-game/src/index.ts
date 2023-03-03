@@ -7,6 +7,7 @@ import { domElementIds, Elements, functions, state } from "./variables.ts";
 import { defineSettingsPage } from "./pages/settings.ts";
 import { getStylesheet } from "./style.ts";
 import { initialState } from "./data-store/state.ts";
+import { defineGameLoop } from "./game/main-loop.ts";
 
 export function getGameHtmlSrc(): string {
   // TODO: add a helper maybe?
@@ -28,6 +29,7 @@ function getScript() {
     initVariables(state, initialState),
     // Render the Home page
     execFunc(functions.goToHomePage),
-    // execFunc(scope("(", defineCanvasRenderLoop())), // TODO: needed?
+    // Start infinite game loop
+    execFunc(defineGameLoop()),
   );
 }

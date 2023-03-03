@@ -1,7 +1,7 @@
 import { initialState } from "./data-store/state.ts";
 import { provideTmpVarNames } from "./deps.ts";
 
-export const { state, functions, domElementIds, canvasContext } =
+export const { state, functions, domElementIds, canvasContext, params } =
   provideTmpVarNames(
     {
       state: initialState,
@@ -9,6 +9,7 @@ export const { state, functions, domElementIds, canvasContext } =
         goToHomePage: "",
         goToGamePage: "",
         goToSettingsPage: "",
+        gameLoop: "",
       },
       domElementIds: {
         page: "",
@@ -16,6 +17,9 @@ export const { state, functions, domElementIds, canvasContext } =
         canvas: "",
       },
       canvasContext: "",
+      params: {
+        time: "",
+      },
     } as const,
   );
 

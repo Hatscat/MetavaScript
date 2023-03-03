@@ -49,12 +49,5 @@ function canvasSetup() {
     ),
     assign(prop(canvasContext, "textAlign"), Text("center")),
     assign(prop(canvasContext, "textBaseline"), Text("middle")),
-    assign(prop(canvasContext, "fillStyle"), Text("#F00")),
-    execFunc(prop(canvasContext, "fillRect"), [
-      0,
-      0,
-      state.canvas.width,
-      state.canvas.height,
-    ]),
   );
 }
