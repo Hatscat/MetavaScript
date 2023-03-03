@@ -1,6 +1,8 @@
 import { assertEquals } from "../dev-deps.ts";
+import { ifElse, isEqual } from "./operations.ts";
 import { List, Text } from "./primitives.ts";
 import {
+  generateTmpVarName,
   initVariables,
   provideTmpVarNames,
   replaceAllTmpVarNames,
@@ -101,15 +103,15 @@ Deno.test("initVariables()", () => {
   const varValues = {
     state: {
       user: {
-        id: 73,
+        id: "73",
         email: Text("foo@bar.com"),
         plan: {
           type: Text("free"),
-          price: 0,
+          price: "0",
         },
       },
     },
-    score: 42,
+    score: "42",
     items: List(),
   };
 
@@ -128,15 +130,24 @@ Deno.test("provideTmpVarNames() + initVariables() + replaceAllTmpVarNames()", ()
   const varValues = {
     state: {
       user: {
-        id: 73,
+        id: "73",
         email: Text("foo@bar.com"),
         plan: {
           type: Text("free"),
-          price: 0,
+          get price(): string {
+            return ifElse(
+              isEqual(
+                generateTmpVarName("state.user.plan.type"),
+                Text("free"),
+              ),
+              "0",
+              "100",
+            );
+          },
         },
       },
     },
-    score: 42,
+    score: "42",
     items: List(),
   };
 
@@ -148,6 +159,6 @@ Deno.test("provideTmpVarNames() + initVariables() + replaceAllTmpVarNames()", ()
   // Then
   assertEquals(
     result,
-    "a=73;b='foo@bar.com';c='free';d=0;e=42;f=[]",
+    "b=73;c='foo@bar.com';a='free';d=a=='free'?0:100;e=42;f=[]",
   );
 });

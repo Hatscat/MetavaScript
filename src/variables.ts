@@ -1,6 +1,6 @@
 import { assign, statements } from "./statements.ts";
 import { getNestedValue } from "./utils/object.ts";
-import { isRecord, Primitive } from "./utils/type.ts";
+import { isRecord } from "./utils/type.ts";
 
 export enum ReservedCharacters {
   EmptyArg = "_",
@@ -11,22 +11,43 @@ const AVAILABLE_CHAR_FOR_VARIABLES =
 
 const TMP_VAR_EDGE = "$$";
 
-export type VarRecord = {
-  [key: string]: Primitive | VarRecord;
+export type VarTree = {
+  [key: string]: string | VarTree;
 };
 
-export function provideTmpVarNames<T extends VarRecord>(
+export function generateTmpVarName(...keysPath: string[]): string {
+  return `${TMP_VAR_EDGE}${keysPath.join(".")}${TMP_VAR_EDGE}`;
+}
+
+export function provideTmpVarNames<T extends VarTree>(
   record: T,
-  _prefix = "",
+  ..._keys: string[]
 ): T {
   return Object.entries(record).reduce(
     (result: T, [key, value]) => ({
       ...result,
       [key]: isRecord(value)
-        ? provideTmpVarNames(value, `${_prefix}${key}.`)
-        : `${TMP_VAR_EDGE}${_prefix}${key}${TMP_VAR_EDGE}`,
+        ? provideTmpVarNames(value, ..._keys, key)
+        : generateTmpVarName(..._keys, key),
     }),
     {} as T,
+  );
+}
+
+export function initVariables(
+  varNames: VarTree,
+  varValues: VarTree,
+  ..._keys: string[]
+): string {
+  return Object.entries(varNames).reduce(
+    (result: string, [key, varName]) =>
+      statements(
+        result,
+        isRecord(varName)
+          ? initVariables(varName, varValues, ..._keys, key)
+          : assign(varName, String(getNestedValue(varValues, ..._keys, key))),
+      ),
+    "",
   );
 }
 
@@ -77,21 +98,4 @@ export function replaceAllTmpVarNames(
   }
 
   return splittedBuild.join("");
-}
-
-export function initVariables(
-  varNames: VarRecord,
-  varValues: VarRecord,
-  _keys: string[] = [],
-): string {
-  return Object.entries(varNames).reduce(
-    (result: string, [key, varName]) =>
-      statements(
-        result,
-        isRecord(varName)
-          ? initVariables(varName, varValues, [..._keys, key])
-          : assign(varName, String(getNestedValue(varValues, [..._keys, key]))),
-      ),
-    "",
-  );
 }
