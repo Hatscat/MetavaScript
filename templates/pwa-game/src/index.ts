@@ -9,14 +9,15 @@ import { getStylesheet } from "./style.ts";
 import { initialState } from "./data-store/state.ts";
 import { defineGameLoop } from "./game/main-loop.ts";
 
-export function getGameHtmlSrc(): string {
-  // TODO: add a helper maybe?
-  return [
-    element("style", { children: getStylesheet(), closed: true }),
-    headerElement(),
-    element(Elements.page, { tagProps: { id: domElementIds.page } }),
-    element("script", { children: getScript(), closed: true }),
-  ].join("");
+export function getGameSrc() {
+  return {
+    css: getStylesheet(),
+    js: getScript(),
+    html: [
+      headerElement(),
+      element(Elements.page, { tagProps: { id: domElementIds.page } }),
+    ],
+  };
 }
 
 function getScript() {
