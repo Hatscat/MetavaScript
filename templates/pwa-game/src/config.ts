@@ -6,7 +6,7 @@ export const config = {
     icon: Text("🤖"),
     radius: 32,
     positionX: 32 + 80,
-    speed: 1,
+    speed: 2,
   },
   target: {
     icon: Text("👾"),

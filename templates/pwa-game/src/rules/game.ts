@@ -1,5 +1,5 @@
 import { GameState } from "../data-store/state.ts";
-import { and, isEqual, isGreater, isLower, sub } from "../deps.ts";
+import { isEqual, isGreater, mul } from "../deps.ts";
 import { state } from "../variables.ts";
 
 export function isPlaying(): string {
@@ -11,11 +11,8 @@ export function isGameOver(): string {
 }
 
 export function canPlayerMove(): string {
-  return and(
-    isGreater(state.player.pos.y, state.player.radius),
-    isLower(
-      state.player.pos.y,
-      sub(state.canvas.height, state.player.radius),
-    ),
+  return isGreater(
+    mul(state.player.dir, state.player.dir),
+    state.player.radius,
   );
 }

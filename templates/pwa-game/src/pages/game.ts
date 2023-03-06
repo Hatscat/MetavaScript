@@ -2,13 +2,11 @@ import { actions, dispatch } from "../data-store/mutator.ts";
 import {
   element,
   expressions,
-  ifThen,
   INLINE_EVENT_ARG_NAME,
   setInnerHtml,
   Text,
 } from "../deps.ts";
 import { assign, defineFunc, execFunc, prop, statements } from "../deps.ts";
-import { canPlayerMove } from "../rules/game.ts";
 import {
   canvasContext,
   domElementIds,
@@ -62,8 +60,5 @@ function canvasSetup() {
 }
 
 function pointerMoveHandler(): string {
-  return ifThen(
-    canPlayerMove(),
-    dispatch(actions.movePlayer(prop(INLINE_EVENT_ARG_NAME, "offsetY"))),
-  );
+  return dispatch(actions.setPointer(prop(INLINE_EVENT_ARG_NAME, "offsetY")));
 }

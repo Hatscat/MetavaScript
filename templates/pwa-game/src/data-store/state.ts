@@ -1,5 +1,5 @@
 import { config } from "../config.ts";
-import { generateTmpVarName, List, sub } from "../deps.ts";
+import { div, generateTmpVarName, List, sub } from "../deps.ts";
 
 export const enum GameState {
   Play = "1",
@@ -13,12 +13,16 @@ export const initialState = {
     width: "innerWidth",
     height: sub("innerHeight", config.headerHeight),
   },
+  pointer: {
+    y: "0",
+  },
   player: {
     radius: String(config.player.radius),
     pos: {
       x: String(config.player.positionX),
       y: "0",
     },
+    dir: "0",
     bullets: List(),
   },
   target: {
@@ -29,7 +33,9 @@ export const initialState = {
           config.target.offsetX,
         );
       },
-      y: "0",
+      get y(): string {
+        return div(generateTmpVarName("state.canvas.height"), 2);
+      },
     },
   },
 } as const;

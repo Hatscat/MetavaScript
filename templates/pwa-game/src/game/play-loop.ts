@@ -1,10 +1,13 @@
 import { config } from "../config.ts";
-import { assign, execFunc, prop, statements, Text } from "../deps.ts";
+import { actions, dispatch } from "../data-store/mutator.ts";
+import { assign, execFunc, ifThen, prop, statements, Text } from "../deps.ts";
+import { canPlayerMove } from "../rules/game.ts";
 import { canvasContext, state } from "../variables.ts";
 
 export function playLoop(): string {
   return statements(
-    // TODO: rules + actions first there
+    dispatch(actions.directPlayer()),
+    ifThen(canPlayerMove(), dispatch(actions.movePlayer())),
     drawBackground(),
     drawTarget(),
     // drawBullets(),

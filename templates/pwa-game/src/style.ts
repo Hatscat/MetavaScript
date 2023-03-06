@@ -41,5 +41,8 @@ export function getStylesheet() {
       flexDirection: "column",
       alignItems: "center",
     },
+    [`#${domElementIds.canvas}`]: {
+      cursor: "crosshair",
+    },
   });
 }
