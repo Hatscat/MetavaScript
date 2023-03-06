@@ -1,5 +1,14 @@
-import { element, expressions, setInnerHtml, Text } from "../deps.ts";
+import { actions, dispatch } from "../data-store/mutator.ts";
+import {
+  element,
+  expressions,
+  ifThen,
+  INLINE_EVENT_ARG_NAME,
+  setInnerHtml,
+  Text,
+} from "../deps.ts";
 import { assign, defineFunc, execFunc, prop, statements } from "../deps.ts";
+import { canPlayerMove } from "../rules/game.ts";
 import {
   canvasContext,
   domElementIds,
@@ -17,7 +26,7 @@ export function defineGamePage() {
             tagProps: {
               id: domElementIds.canvas,
               // onclick: execFunc(v.canvasClickHandler, "event"),
-              // onpointermove: execFunc(v.canvasPointerMoveHandler, "event"),
+              onpointermove: Text(pointerMoveHandler()),
             },
           }),
         ]),
@@ -49,5 +58,12 @@ function canvasSetup() {
     ),
     assign(prop(canvasContext, "textAlign"), Text("center")),
     assign(prop(canvasContext, "textBaseline"), Text("middle")),
+  );
+}
+
+function pointerMoveHandler(): string {
+  return ifThen(
+    canPlayerMove(),
+    dispatch(actions.movePlayer(prop(INLINE_EVENT_ARG_NAME, "offsetY"))),
   );
 }

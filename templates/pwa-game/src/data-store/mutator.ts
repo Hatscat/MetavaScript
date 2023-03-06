@@ -11,6 +11,7 @@ import { State } from "./state.ts";
 
 enum ActionType {
   SetTime,
+  MovePlayer,
   FirePlayerBullet,
 }
 
@@ -19,16 +20,25 @@ interface SetTime extends ActionBase<ActionType> {
   payload: { time: string };
 }
 
+interface MovePlayer extends ActionBase<ActionType> {
+  type: ActionType.MovePlayer;
+  payload: { y: string };
+}
+
 interface FirePlayerBullet extends ActionBase<ActionType> {
   type: ActionType.FirePlayerBullet;
 }
 
-type Action = SetTime | FirePlayerBullet;
+type Action = SetTime | MovePlayer | FirePlayerBullet;
 
 export const actions = {
   setTime: (time: string): SetTime => ({
     type: ActionType.SetTime,
     payload: { time },
+  }),
+  movePlayer: (y: string): MovePlayer => ({
+    type: ActionType.MovePlayer,
+    payload: { y },
   }),
   firePlayerBullet: (): FirePlayerBullet => ({
     type: ActionType.FirePlayerBullet,
@@ -39,6 +49,9 @@ function mutator(state: State, action: Action): string {
   switch (action.type) {
     case ActionType.SetTime: {
       return assign(state.time, action.payload.time);
+    }
+    case ActionType.MovePlayer: {
+      return assign(state.player.pos.y, action.payload.y);
     }
     case ActionType.FirePlayerBullet: {
       return execFunc(
