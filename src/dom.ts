@@ -1,5 +1,7 @@
 import { findAvailableQuote, kebabCase } from "./utils/string.ts";
 
+export const INLINE_EVENT_ARG_NAME = "event";
+
 type ElementProps = {
   tagProps?: Record<string, string>;
   children?: string | string[];
