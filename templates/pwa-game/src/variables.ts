@@ -19,6 +19,7 @@ export const { state, functions, domElementIds, canvasContext, params } =
       canvasContext: "",
       params: {
         time: "",
+        item: "",
       },
     } as const,
   );

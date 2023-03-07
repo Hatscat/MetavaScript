@@ -12,6 +12,10 @@ export const config = {
     icon: Text("👾"),
     radius: 64,
     offsetX: 64 + 80,
-    speed: 2,
+    speed: 500,
+  },
+  bullet: {
+    icon: Text("⚙️"),
+    radius: 8,
   },
 };

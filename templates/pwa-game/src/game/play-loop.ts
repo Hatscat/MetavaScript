@@ -1,16 +1,27 @@
 import { config } from "../config.ts";
 import { actions, dispatch } from "../data-store/mutator.ts";
-import { assign, execFunc, ifThen, prop, statements, Text } from "../deps.ts";
-import { canPlayerMove } from "../rules/game.ts";
-import { canvasContext, state } from "../variables.ts";
+import {
+  assign,
+  defineFunc,
+  execFunc,
+  prop,
+  statements,
+  Text,
+} from "../deps.ts";
+import { canvasContext, params, state } from "../variables.ts";
 
 export function playLoop(): string {
   return statements(
-    dispatch(actions.directPlayer()),
-    ifThen(canPlayerMove(), dispatch(actions.movePlayer())),
+    // Updates
+    dispatch(actions.setTime(params.time)),
+    dispatch(actions.moveTarget()),
+    dispatch(actions.movePlayer()),
+    // dispatch(actions.moveBullets()),
+    // Render
     drawBackground(),
+    // drawTime(),
+    drawBullets(),
     drawTarget(),
-    // drawBullets(),
     drawPlayer(),
   );
 }
@@ -24,6 +35,27 @@ function drawBackground(): string {
       state.canvas.width,
       state.canvas.height,
     ]),
+  );
+}
+
+function drawBullets(): string {
+  return statements(
+    assign(
+      prop(canvasContext, "font"),
+      Text(`${config.bullet.radius * 2}px A`),
+    ),
+    execFunc(
+      prop(state.player.bullets, "forEach"),
+      defineFunc(null, {
+        args: [params.item],
+        body: execFunc(prop(canvasContext, "fillText"), [
+          config.bullet.icon,
+          prop(params.item, "x"),
+          prop(params.item, "y"),
+        ]),
+        safe: false,
+      }),
+    ),
   );
 }
 

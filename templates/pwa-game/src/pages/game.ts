@@ -23,8 +23,8 @@ export function defineGamePage() {
           element("canvas", {
             tagProps: {
               id: domElementIds.canvas,
-              // onclick: execFunc(v.canvasClickHandler, "event"),
               onpointermove: Text(pointerMoveHandler()),
+              onclick: Text(clickHandler()),
             },
           }),
         ]),
@@ -33,6 +33,7 @@ export function defineGamePage() {
           Text("Game Template"),
         ),
         canvasSetup(),
+        dispatch(actions.setTime("0")),
       ),
     },
   );
@@ -61,4 +62,8 @@ function canvasSetup() {
 
 function pointerMoveHandler(): string {
   return dispatch(actions.setPointer(prop(INLINE_EVENT_ARG_NAME, "offsetY")));
+}
+
+function clickHandler(): string {
+  return dispatch(actions.firePlayerBullet());
 }

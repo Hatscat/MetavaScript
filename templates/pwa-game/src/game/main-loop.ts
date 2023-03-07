@@ -1,4 +1,3 @@
-import { actions, dispatch } from "../data-store/mutator.ts";
 import {
   abortIf,
   defineFunc,
@@ -20,8 +19,7 @@ export function defineGameLoop() {
       // loop logic
       execFunc("requestAnimationFrame", functions.gameLoop),
       abortIf(not(prop("window", canvasContext))),
-      // actions
-      dispatch(actions.setTime(params.time)),
+      // game states
       ifThen(isPlaying(), playLoop()),
       ifThen(isGameOver(), gameOverLoop()),
     ),
