@@ -16,13 +16,13 @@ export function playLoop(): string {
     dispatch(actions.setTime(params.time)),
     dispatch(actions.moveTarget()),
     dispatch(actions.movePlayer()),
-    // dispatch(actions.moveBullets()),
+    dispatch(actions.moveBullets()),
     // Render
     drawBackground(),
     // drawTime(),
-    drawBullets(),
-    drawTarget(),
     drawPlayer(),
+    drawTarget(),
+    drawBullets(),
   );
 }
 

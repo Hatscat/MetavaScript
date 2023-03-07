@@ -17,5 +17,6 @@ export const config = {
   bullet: {
     icon: Text("⚙️"),
     radius: 8,
+    speed: 4,
   },
 };
