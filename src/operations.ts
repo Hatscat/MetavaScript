@@ -1,5 +1,9 @@
-import { Printable } from "./utils/type.ts";
+import { Primitive, Printable } from "./utils/type.ts";
 
+/**
+ * addition(s)
+ * example: add(1, 2, '3', true) == "1+2+3+true"
+ */
 export function add(...values: Printable[]): string {
   return values.join("+");
 }
@@ -89,16 +93,24 @@ export function loop(
 
 export function increment(
   variable: string,
+  step: Primitive = 1,
   { before } = { before: false },
 ): string {
-  return before ? `++${variable}` : `${variable}++`;
+  if (step === 1) {
+    return before ? `++${variable}` : `${variable}++`;
+  }
+  return `${variable}+=${step}`;
 }
 
 export function decrement(
   variable: string,
+  step: Primitive = 1,
   { before } = { before: false },
 ): string {
-  return before ? `--${variable}` : `${variable}--`;
+  if (step === 1) {
+    return before ? `--${variable}` : `${variable}--`;
+  }
+  return `${variable}-=${step}`;
 }
 
 export function castBoolean(value: Printable): string {
