@@ -9,7 +9,7 @@ type FunctionDefinition = {
 };
 
 export function defineFunc(
-  name: string,
+  name: string | null,
   { args = [], body, safe = true }: FunctionDefinition,
 ): string {
   const enclosedArgs = args.length === 0
@@ -17,12 +17,13 @@ export function defineFunc(
     : args.length === 1 && !String(args[0]).includes("=")
     ? args[0]
     : `(${args})`;
+  const declaration = name ? `${name}=` : "";
 
   return /while|for|if|switch|return|[{;]/.test(String(body))
-    ? `${name}=${enclosedArgs}=>{${body}}`
+    ? `${declaration}${enclosedArgs}=>{${body}}`
     : safe
-    ? `${name}=${enclosedArgs}=>(${body})`
-    : `${name}=${enclosedArgs}=>${body}`;
+    ? `${declaration}${enclosedArgs}=>(${body})`
+    : `${declaration}${enclosedArgs}=>${body}`;
 }
 
 export function execFunc(
