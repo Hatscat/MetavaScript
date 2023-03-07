@@ -17,6 +17,10 @@ export const config = {
   bullet: {
     icon: Text("⚙️"),
     radius: 8,
-    speed: 4,
+    speed: 5,
+  },
+  timer: {
+    offsetY: 64,
+    font: "32px A",
   },
 };

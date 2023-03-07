@@ -2,7 +2,9 @@ import { config } from "../config.ts";
 import { actions, dispatch } from "../data-store/mutator.ts";
 import {
   assign,
+  castInt,
   defineFunc,
+  div,
   execFunc,
   prop,
   statements,
@@ -19,7 +21,7 @@ export function playLoop(): string {
     dispatch(actions.moveBullets()),
     // Render
     drawBackground(),
-    // drawTime(),
+    drawTime(),
     drawPlayer(),
     drawTarget(),
     drawBullets(),
@@ -28,12 +30,27 @@ export function playLoop(): string {
 
 function drawBackground(): string {
   return statements(
-    assign(prop(canvasContext, "fillStyle"), Text("#111")),
+    assign(prop(canvasContext, "fillStyle"), Text("#000")),
     execFunc(prop(canvasContext, "fillRect"), [
       0,
       0,
       state.canvas.width,
       state.canvas.height,
+    ]),
+  );
+}
+
+function drawTime(): string {
+  return statements(
+    assign(prop(canvasContext, "fillStyle"), Text("#EEE")),
+    assign(
+      prop(canvasContext, "font"),
+      Text(config.timer.font),
+    ),
+    execFunc(prop(canvasContext, "fillText"), [
+      castInt(div(state.time, "1e3")),
+      div(state.canvas.width, 2),
+      config.timer.offsetY,
     ]),
   );
 }

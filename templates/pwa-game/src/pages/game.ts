@@ -1,12 +1,15 @@
 import { actions, dispatch } from "../data-store/mutator.ts";
 import {
+  assign,
+  defineFunc,
   element,
-  expressions,
+  execFunc,
   INLINE_EVENT_ARG_NAME,
+  prop,
   setInnerHtml,
+  statements,
   Text,
 } from "../deps.ts";
-import { assign, defineFunc, execFunc, prop, statements } from "../deps.ts";
 import {
   canvasContext,
   domElementIds,
@@ -33,14 +36,13 @@ export function defineGamePage() {
           Text("Game Template"),
         ),
         canvasSetup(),
-        dispatch(actions.setTime("0")),
       ),
     },
   );
 }
 
 function canvasSetup() {
-  return expressions(
+  return statements(
     assign(
       prop(domElementIds.canvas, "width"),
       state.canvas.width,
