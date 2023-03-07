@@ -113,20 +113,24 @@ export function decrement(
   return `${variable}-=${step}`;
 }
 
-export function castBoolean(value: Printable): string {
+export function castBoolean(value: Primitive): string {
   return `!!${value}`;
 }
 
-export function castNumber(value: Printable): string {
+export function castNumber(value: Primitive): string {
   return `+${value}`;
 }
 
-export function castInt(value: Printable): string {
+export function castInt(value: Primitive): string {
   return `${value}|0`;
 }
 
-export function round(value: number): string {
+export function round(value: Primitive): string {
   return `${value}+.5|0`;
+}
+
+export function minus(value: Primitive): string {
+  return `-${value}`;
 }
 
 export function funcConstructor(args: string[], body: string) {
