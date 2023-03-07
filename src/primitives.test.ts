@@ -46,7 +46,7 @@ Deno.test("Record()", () => {
   // Given
   const anOject = {
     abc: 1,
-    cbd: [true, 2, "AAA", null],
+    cbd: [true, 2, Text("AAA"), null],
     fds: {
       aze: 42,
       vcs: [
@@ -58,7 +58,7 @@ Deno.test("Record()", () => {
       ],
       ert: {
         hjk: {
-          a: "true",
+          a: Text("true"),
         },
       },
     },

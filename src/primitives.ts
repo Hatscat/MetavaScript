@@ -21,18 +21,13 @@ export function List(...values: Printable[]): string {
 }
 
 export function Record(obj: Record<string | number, unknown>): string {
-  const castString = (v: unknown) =>
-    typeof v === "string" ? Text(v) : String(v);
-
   return Array.isArray(obj)
-    ? `[${
-      obj.map((value) => isRecord(value) ? Record(value) : castString(value))
-    }]`
+    ? `[${obj.map((value) => isRecord(value) ? Record(value) : String(value))}]`
     : `{${
       Object.entries(obj).reduce(
         (result: string[], [key, value]) =>
           result.concat(
-            `${key}:${isRecord(value) ? Record(value) : castString(value)}`,
+            `${key}:${isRecord(value) ? Record(value) : String(value)}`,
           ),
         [],
       ).join(",")
