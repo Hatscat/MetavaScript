@@ -19,6 +19,8 @@ export function playLoop(): string {
     dispatch(actions.moveTarget()),
     dispatch(actions.movePlayer()),
     dispatch(actions.moveBullets()),
+    // dispatch(actions.collideBullets()),
+    dispatch(actions.clearOutOfScreenBullets()),
     // Render
     drawBackground(),
     drawTime(),

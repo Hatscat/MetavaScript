@@ -11,6 +11,7 @@ import {
   ifThen,
   increment,
   isGreater,
+  isLower,
   minus,
   mul,
   prop,
@@ -29,6 +30,7 @@ enum ActionType {
   MovePlayer,
   MoveBullets,
   FirePlayerBullet,
+  ClearOutOfScreenBullets,
 }
 
 interface SetTime extends ActionBase<ActionType> {
@@ -57,13 +59,18 @@ interface FirePlayerBullet extends ActionBase<ActionType> {
   type: ActionType.FirePlayerBullet;
 }
 
+interface ClearOutOfScreenBullets extends ActionBase<ActionType> {
+  type: ActionType.ClearOutOfScreenBullets;
+}
+
 type Action =
   | SetTime
   | SetPointer
   | MoveTarget
   | MovePlayer
   | MoveBullets
-  | FirePlayerBullet;
+  | FirePlayerBullet
+  | ClearOutOfScreenBullets;
 
 export const actions = {
   setTime: (time: string): SetTime => ({
@@ -85,6 +92,9 @@ export const actions = {
   }),
   firePlayerBullet: (): FirePlayerBullet => ({
     type: ActionType.FirePlayerBullet,
+  }),
+  clearOutOfScreenBullets: (): ClearOutOfScreenBullets => ({
+    type: ActionType.ClearOutOfScreenBullets,
   }),
 } as const;
 
@@ -144,6 +154,19 @@ function mutator(state: State, action: Action): string {
           x: state.player.pos.x,
           y: state.player.pos.y,
         }),
+      );
+    }
+    case ActionType.ClearOutOfScreenBullets: {
+      return assign(
+        state.player.bullets,
+        execFunc(
+          prop(state.player.bullets, "filter"),
+          defineFunc(null, {
+            args: [params.item],
+            body: isLower(prop(params.item, "x"), state.canvas.width),
+            safe: false,
+          }),
+        ),
       );
     }
   }
