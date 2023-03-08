@@ -4,14 +4,15 @@ import {
   add,
   assign,
   createActionDispatch,
+  decrement,
   defineFunc,
   div,
   execFunc,
+  expressions,
   ifElse,
   ifThen,
   increment,
   isGreater,
-  isLower,
   minus,
   mul,
   prop,
@@ -19,7 +20,11 @@ import {
   statements,
   sub,
 } from "../deps.ts";
-import { canPlayerMove } from "../rules/game.ts";
+import {
+  canPlayerMove,
+  doesTheBulletHitTheTarget,
+  shouldTheBulletBeKept,
+} from "../rules/game.ts";
 import { params, state } from "../variables.ts";
 import { State } from "./state.ts";
 
@@ -30,6 +35,7 @@ enum ActionType {
   MovePlayer,
   MoveBullets,
   FirePlayerBullet,
+  CollideBullets,
   ClearOutOfScreenBullets,
 }
 
@@ -57,6 +63,9 @@ type Action<T = ActionType> =
       type: ActionType.FirePlayerBullet;
     }
     | {
+      type: ActionType.CollideBullets;
+    }
+    | {
       type: ActionType.ClearOutOfScreenBullets;
     }
   );
@@ -81,6 +90,9 @@ export const actions = {
   }),
   firePlayerBullet: (): Action<ActionType.FirePlayerBullet> => ({
     type: ActionType.FirePlayerBullet,
+  }),
+  collideBullets: (): Action<ActionType.CollideBullets> => ({
+    type: ActionType.CollideBullets,
   }),
   clearOutOfScreenBullets: (): Action<ActionType.ClearOutOfScreenBullets> => ({
     type: ActionType.ClearOutOfScreenBullets,
@@ -145,6 +157,22 @@ function mutator(state: State, action: Action): string {
         }),
       );
     }
+    case ActionType.CollideBullets: {
+      return execFunc(
+        prop(state.player.bullets, "forEach"),
+        defineFunc(null, {
+          args: [params.item],
+          body: ifThen(
+            doesTheBulletHitTheTarget(params.item),
+            expressions(
+              assign(prop(params.item, "x"), state.canvas.width),
+              decrement(state.target.hp),
+            ),
+          ),
+          safe: false,
+        }),
+      );
+    }
     case ActionType.ClearOutOfScreenBullets: {
       return assign(
         state.player.bullets,
@@ -152,7 +180,7 @@ function mutator(state: State, action: Action): string {
           prop(state.player.bullets, "filter"),
           defineFunc(null, {
             args: [params.item],
-            body: isLower(prop(params.item, "x"), state.canvas.width),
+            body: shouldTheBulletBeKept(params.item),
             safe: false,
           }),
         ),

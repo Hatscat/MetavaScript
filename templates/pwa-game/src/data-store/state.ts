@@ -37,6 +37,7 @@ export const initialState = {
         return div(generateTmpVarName("state.canvas.height"), 2);
       },
     },
+    hp: String(config.target.hp),
   },
 } as const;
 

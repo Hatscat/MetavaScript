@@ -19,8 +19,10 @@ export function playLoop(): string {
     dispatch(actions.moveTarget()),
     dispatch(actions.movePlayer()),
     dispatch(actions.moveBullets()),
-    // dispatch(actions.collideBullets()),
+    dispatch(actions.collideBullets()),
     dispatch(actions.clearOutOfScreenBullets()),
+    // ifThen(isGameOver(),dispatch(actions.goToGameOver))
+
     // Render
     drawBackground(),
     drawTime(),
@@ -58,10 +60,12 @@ function drawTime(): string {
 }
 
 function drawBullets(): string {
+  const fontSize = config.bullet.radius * 2;
+
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${config.bullet.radius * 2}px A`),
+      Text(`${fontSize}px A`),
     ),
     execFunc(
       prop(state.player.bullets, "forEach"),
@@ -79,11 +83,21 @@ function drawBullets(): string {
 }
 
 function drawTarget(): string {
+  const fontSize = config.target.radius * 2;
+
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${config.target.radius * 2}px A`),
+      Text(`${fontSize}px A`),
     ),
+    // assign(
+    //   prop(canvasContext, "shadowColor"),
+    //   Text("red"),
+    // ),
+    // assign(
+    //   prop(canvasContext, "shadowBlur"),
+    //   9,
+    // ),
     execFunc(prop(canvasContext, "fillText"), [
       config.target.icon,
       state.target.pos.x,
@@ -93,10 +107,12 @@ function drawTarget(): string {
 }
 
 function drawPlayer(): string {
+  const fontSize = config.player.radius * 2;
+
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${config.player.radius * 2}px A`),
+      Text(`${fontSize}px A`),
     ),
     execFunc(prop(canvasContext, "fillText"), [
       config.player.icon,

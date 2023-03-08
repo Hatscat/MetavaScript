@@ -6,21 +6,22 @@ export const config = {
     icon: Text("🤖"),
     radius: 32,
     positionX: 32 + 80,
-    speed: 2,
+    speed: 5,
   },
   target: {
     icon: Text("👾"),
     radius: 64,
     offsetX: 64 + 80,
     speed: 500,
+    hp: 10,
   },
   bullet: {
     icon: Text("⚙️"),
     radius: 8,
-    speed: 5,
+    speed: 9,
   },
   timer: {
     offsetY: 64,
     font: "32px A",
   },
-};
+} as const;
