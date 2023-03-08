@@ -33,67 +33,56 @@ enum ActionType {
   ClearOutOfScreenBullets,
 }
 
-interface SetTime extends ActionBase<ActionType> {
-  type: ActionType.SetTime;
-  payload: { time: string };
-}
-
-interface SetPointer extends ActionBase<ActionType> {
-  type: ActionType.SetPointer;
-  payload: { y: string };
-}
-
-interface MoveTarget extends ActionBase<ActionType> {
-  type: ActionType.MoveTarget;
-}
-
-interface MovePlayer extends ActionBase<ActionType> {
-  type: ActionType.MovePlayer;
-}
-
-interface MoveBullets extends ActionBase<ActionType> {
-  type: ActionType.MoveBullets;
-}
-
-interface FirePlayerBullet extends ActionBase<ActionType> {
-  type: ActionType.FirePlayerBullet;
-}
-
-interface ClearOutOfScreenBullets extends ActionBase<ActionType> {
-  type: ActionType.ClearOutOfScreenBullets;
-}
-
-type Action =
-  | SetTime
-  | SetPointer
-  | MoveTarget
-  | MovePlayer
-  | MoveBullets
-  | FirePlayerBullet
-  | ClearOutOfScreenBullets;
+type Action<T = ActionType> =
+  & ActionBase<T>
+  & (
+    | {
+      type: ActionType.SetTime;
+      payload: { time: string };
+    }
+    | {
+      type: ActionType.SetPointer;
+      payload: { y: string };
+    }
+    | {
+      type: ActionType.MoveTarget;
+    }
+    | {
+      type: ActionType.MovePlayer;
+    }
+    | {
+      type: ActionType.MoveBullets;
+    }
+    | {
+      type: ActionType.FirePlayerBullet;
+    }
+    | {
+      type: ActionType.ClearOutOfScreenBullets;
+    }
+  );
 
 export const actions = {
-  setTime: (time: string): SetTime => ({
+  setTime: (time: string): Action<ActionType.SetTime> => ({
     type: ActionType.SetTime,
     payload: { time },
   }),
-  setPointer: (y: string): SetPointer => ({
+  setPointer: (y: string): Action<ActionType.SetPointer> => ({
     type: ActionType.SetPointer,
     payload: { y },
   }),
-  moveTarget: (): MoveTarget => ({
+  moveTarget: (): Action<ActionType.MoveTarget> => ({
     type: ActionType.MoveTarget,
   }),
-  movePlayer: (): MovePlayer => ({
+  movePlayer: (): Action<ActionType.MovePlayer> => ({
     type: ActionType.MovePlayer,
   }),
-  moveBullets: (): MoveBullets => ({
+  moveBullets: (): Action<ActionType.MoveBullets> => ({
     type: ActionType.MoveBullets,
   }),
-  firePlayerBullet: (): FirePlayerBullet => ({
+  firePlayerBullet: (): Action<ActionType.FirePlayerBullet> => ({
     type: ActionType.FirePlayerBullet,
   }),
-  clearOutOfScreenBullets: (): ClearOutOfScreenBullets => ({
+  clearOutOfScreenBullets: (): Action<ActionType.ClearOutOfScreenBullets> => ({
     type: ActionType.ClearOutOfScreenBullets,
   }),
 } as const;
