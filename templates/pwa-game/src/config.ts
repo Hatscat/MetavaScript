@@ -14,6 +14,7 @@ export const config = {
     offsetX: 64 + 80,
     speed: 500,
     hp: 10,
+    recoverDelay: 300,
   },
   bullet: {
     icon: Text("⚙️"),

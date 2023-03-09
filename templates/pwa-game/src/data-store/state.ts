@@ -38,6 +38,7 @@ export const initialState = {
       },
     },
     hp: String(config.target.hp),
+    recoverTime: "0",
   },
 } as const;
 

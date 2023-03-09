@@ -167,6 +167,10 @@ function mutator(state: State, action: Action): string {
             expressions(
               assign(prop(params.item, "x"), state.canvas.width),
               decrement(state.target.hp),
+              assign(
+                state.target.recoverTime,
+                add(state.time, config.target.recoverDelay),
+              ),
             ),
           ),
           safe: false,

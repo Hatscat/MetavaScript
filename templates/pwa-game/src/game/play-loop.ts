@@ -7,7 +7,9 @@ import {
   div,
   execFunc,
   prop,
+  scope,
   statements,
+  sub,
   Text,
 } from "../deps.ts";
 import { canvasContext, params, state } from "../variables.ts";
@@ -90,19 +92,23 @@ function drawTarget(): string {
       prop(canvasContext, "font"),
       Text(`${fontSize}px A`),
     ),
-    // assign(
-    //   prop(canvasContext, "shadowColor"),
-    //   Text("red"),
-    // ),
-    // assign(
-    //   prop(canvasContext, "shadowBlur"),
-    //   9,
-    // ),
+    assign(
+      prop(canvasContext, "shadowColor"),
+      Text("red"),
+    ),
+    assign(
+      prop(canvasContext, "shadowBlur"),
+      div(
+        scope("(", sub(state.target.recoverTime, state.time)),
+        9,
+      ),
+    ),
     execFunc(prop(canvasContext, "fillText"), [
       config.target.icon,
       state.target.pos.x,
       state.target.pos.y,
     ]),
+    assign(prop(canvasContext, "shadowBlur"), 0),
   );
 }
 
