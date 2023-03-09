@@ -1,4 +1,5 @@
 import { actions, dispatch } from "../data-store/mutator.ts";
+import { GameState } from "../data-store/state.ts";
 import {
   assign,
   defineFunc,
@@ -34,6 +35,10 @@ export function defineGamePage() {
         assign(
           prop(domElementIds.headerTitle, "innerText"),
           Text("Game Template"),
+        ),
+        assign(
+          state.gameState,
+          GameState.Play,
         ),
         canvasSetup(),
       ),

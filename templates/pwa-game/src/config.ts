@@ -13,7 +13,7 @@ export const config = {
     radius: 64,
     offsetX: 64 + 80,
     speed: 500,
-    hp: 10,
+    hp: 9,
     recoverDelay: 300,
   },
   bullet: {

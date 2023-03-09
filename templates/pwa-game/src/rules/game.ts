@@ -13,12 +13,16 @@ import {
 } from "../deps.ts";
 import { state } from "../variables.ts";
 
-export function isPlaying(): string {
+export function isPlayState(): string {
   return isEqual(state.gameState, GameState.Play);
 }
 
-export function isGameOver(): string {
+export function isGameOverState(): string {
   return isEqual(state.gameState, GameState.GameOver);
+}
+
+export function isTheGameOver(): string {
+  return isLower(state.target.hp, 1);
 }
 
 export function canPlayerMove(): string {

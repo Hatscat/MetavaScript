@@ -7,7 +7,7 @@ import {
   prop,
   statements,
 } from "../deps.ts";
-import { isGameOver, isPlaying } from "../rules/game.ts";
+import { isGameOverState, isPlayState } from "../rules/game.ts";
 import { canvasContext, functions, params } from "../variables.ts";
 import { gameOverLoop } from "./game-over-loop.ts";
 import { playLoop } from "./play-loop.ts";
@@ -20,8 +20,8 @@ export function defineGameLoop() {
       execFunc("requestAnimationFrame", functions.gameLoop),
       abortIf(not(prop("window", canvasContext))),
       // game states
-      ifThen(isPlaying(), playLoop()),
-      ifThen(isGameOver(), gameOverLoop()),
+      ifThen(isPlayState(), playLoop()),
+      ifThen(isGameOverState(), gameOverLoop()),
     ),
   });
 }

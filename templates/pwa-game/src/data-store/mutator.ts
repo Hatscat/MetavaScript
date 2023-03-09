@@ -13,6 +13,7 @@ import {
   ifThen,
   increment,
   isGreater,
+  List,
   minus,
   mul,
   prop,
@@ -26,7 +27,7 @@ import {
   shouldTheBulletBeKept,
 } from "../rules/game.ts";
 import { params, state } from "../variables.ts";
-import { State } from "./state.ts";
+import { GameState, State } from "./state.ts";
 
 enum ActionType {
   SetTime,
@@ -37,6 +38,7 @@ enum ActionType {
   FirePlayerBullet,
   CollideBullets,
   ClearOutOfScreenBullets,
+  GameOver,
 }
 
 type Action<T = ActionType> =
@@ -68,6 +70,9 @@ type Action<T = ActionType> =
     | {
       type: ActionType.ClearOutOfScreenBullets;
     }
+    | {
+      type: ActionType.GameOver;
+    }
   );
 
 export const actions = {
@@ -96,6 +101,9 @@ export const actions = {
   }),
   clearOutOfScreenBullets: (): Action<ActionType.ClearOutOfScreenBullets> => ({
     type: ActionType.ClearOutOfScreenBullets,
+  }),
+  gameOver: (): Action<ActionType.GameOver> => ({
+    type: ActionType.GameOver,
   }),
 } as const;
 
@@ -188,6 +196,13 @@ function mutator(state: State, action: Action): string {
             safe: false,
           }),
         ),
+      );
+    }
+    case ActionType.GameOver: {
+      return statements(
+        assign(state.gameState, GameState.GameOver),
+        assign(state.target.hp, config.target.hp),
+        assign(state.player.bullets, List()),
       );
     }
   }

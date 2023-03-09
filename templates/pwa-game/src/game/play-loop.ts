@@ -6,12 +6,14 @@ import {
   defineFunc,
   div,
   execFunc,
+  ifThen,
   prop,
   scope,
   statements,
   sub,
   Text,
 } from "../deps.ts";
+import { isTheGameOver } from "../rules/game.ts";
 import { canvasContext, params, state } from "../variables.ts";
 
 export function playLoop(): string {
@@ -23,8 +25,7 @@ export function playLoop(): string {
     dispatch(actions.moveBullets()),
     dispatch(actions.collideBullets()),
     dispatch(actions.clearOutOfScreenBullets()),
-    // ifThen(isGameOver(),dispatch(actions.goToGameOver))
-
+    ifThen(isTheGameOver(), dispatch(actions.gameOver())),
     // Render
     drawBackground(),
     drawTime(),
