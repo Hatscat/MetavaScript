@@ -1,5 +1,11 @@
 import { assertEquals } from "../dev-deps.ts";
-import { element, formatStyle, formatStylesheet, setInnerHtml } from "./dom.ts";
+import {
+  element,
+  font,
+  formatStyle,
+  formatStylesheet,
+  setInnerHtml,
+} from "./dom.ts";
 
 Deno.test("element()", () => {
   assertEquals(element("div", {}), "<div>");
@@ -80,4 +86,10 @@ Deno.test("formatStylesheet()", () => {
     }),
     "*:hover{padding-left:4}div{display:flex;justify-content:center}.center{text-align:center}@media(orientation:portrait){#root>*{flex-direction:column}}",
   );
+});
+
+Deno.test("font()", () => {
+  assertEquals(font(12), "12px A");
+  assertEquals(font(50, "%"), "50% A");
+  assertEquals(font("2", "em", "Arial"), "2em Arial");
 });

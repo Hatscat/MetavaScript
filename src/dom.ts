@@ -54,3 +54,11 @@ export function formatStyle(
     `${kebabCase(key)}:${value}`
   ).join(";");
 }
+
+export function font(
+  sizeValue: number | string,
+  sizeUnit = "px",
+  family = "A",
+): string {
+  return `${sizeValue}${sizeUnit} ${family}`;
+}
