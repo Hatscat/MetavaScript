@@ -34,7 +34,7 @@ function drawMessage(): string {
     assign(prop(canvasContext, "fillStyle"), Text("#EFF")),
     assign(
       prop(canvasContext, "font"),
-      Text(font(256)),
+      Text(font(16, "vw")),
     ),
     execFunc(prop(canvasContext, "fillText"), [
       Text("VICTORY"),
