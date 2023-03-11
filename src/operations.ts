@@ -1,3 +1,4 @@
+import { findAvailableQuote } from "./utils/string.ts";
 import { Primitive, Printable } from "./utils/type.ts";
 
 /**
@@ -147,12 +148,11 @@ export function templateLiteral(
   }\``;
 }
 
-export function quote(q: '"' | "'" | "`" | "${", text: string): string {
-  return `${q}${text}${q === "${" ? "}" : q}`;
+export function quote(text: string, border?: '"' | "'" | "`"): string {
+  const q = border ?? findAvailableQuote(text);
+  return `${q}${text}${q}`;
 }
 
-export function scope(q: "(" | "{" | "[", content: Printable): string {
-  return `${q}${content}${
-    q === "(" ? ")" : q === "{" ? "}" : q === "[" ? "]" : q
-  }`;
+export function scope(content: Printable, border: ")" | "}" = ")"): string {
+  return `${border === ")" ? "(" : "{"}${content}${border}`;
 }
