@@ -1,4 +1,4 @@
-import { Text } from "./deps.ts";
+import { font, Text } from "./deps.ts";
 
 export const config = {
   headerHeight: 48,
@@ -13,7 +13,7 @@ export const config = {
     radius: 64,
     offsetX: 64 + 80,
     speed: 500,
-    hp: 9,
+    hp: 5,
     recoverDelay: 300,
   },
   bullet: {
@@ -23,6 +23,6 @@ export const config = {
   },
   timer: {
     offsetY: 64,
-    font: "32px A",
+    font: font(32),
   },
 } as const;

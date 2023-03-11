@@ -1,4 +1,12 @@
-import { assign, div, execFunc, prop, statements, Text } from "../deps.ts";
+import {
+  assign,
+  div,
+  execFunc,
+  font,
+  prop,
+  statements,
+  Text,
+} from "../deps.ts";
 import { canvasContext, state } from "../variables.ts";
 
 export function gameOverLoop(): string {
@@ -26,7 +34,7 @@ function drawMessage(): string {
     assign(prop(canvasContext, "fillStyle"), Text("#EFF")),
     assign(
       prop(canvasContext, "font"),
-      Text(`256px A`),
+      Text(font(256)),
     ),
     execFunc(prop(canvasContext, "fillText"), [
       Text("VICTORY"),

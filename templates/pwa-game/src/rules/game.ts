@@ -41,11 +41,11 @@ export function doesTheBulletHitTheTarget(bullet: string): string {
 
   return and(
     isLower(
-      pow(scope("(", sub(state.target.pos.y, prop(bullet, "y"))), 2),
+      pow(scope(sub(state.target.pos.y, prop(bullet, "y"))), 2),
       radius2,
     ),
     isLower(
-      pow(scope("(", sub(state.target.pos.x, prop(bullet, "x"))), 2),
+      pow(scope(sub(state.target.pos.x, prop(bullet, "x"))), 2),
       radius2,
     ),
   );

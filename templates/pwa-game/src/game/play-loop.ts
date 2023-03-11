@@ -6,6 +6,7 @@ import {
   defineFunc,
   div,
   execFunc,
+  font,
   ifThen,
   prop,
   scope,
@@ -68,7 +69,7 @@ function drawBullets(): string {
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${fontSize}px A`),
+      Text(font(fontSize)),
     ),
     execFunc(
       prop(state.player.bullets, "forEach"),
@@ -91,7 +92,7 @@ function drawTarget(): string {
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${fontSize}px A`),
+      Text(font(fontSize)),
     ),
     assign(
       prop(canvasContext, "shadowColor"),
@@ -100,7 +101,7 @@ function drawTarget(): string {
     assign(
       prop(canvasContext, "shadowBlur"),
       div(
-        scope("(", sub(state.target.recoverTime, state.time)),
+        scope(sub(state.target.recoverTime, state.time)),
         9,
       ),
     ),
@@ -119,7 +120,7 @@ function drawPlayer(): string {
   return statements(
     assign(
       prop(canvasContext, "font"),
-      Text(`${fontSize}px A`),
+      Text(font(fontSize)),
     ),
     execFunc(prop(canvasContext, "fillText"), [
       config.player.icon,
