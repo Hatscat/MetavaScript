@@ -1,9 +1,12 @@
 import { element } from "./dom.ts";
 import { replaceAllTmpVarNames } from "./variables.ts";
 
-type SrcProps = {
+export type SrcProps = {
   css?: string;
-  html?: string | string[];
+  html?: {
+    head?: string | string[];
+    body?: string | string[];
+  };
   js?: string;
   outputPath?: string;
 };
@@ -14,8 +17,9 @@ export async function writeHtmlBundle(
   { css, html, js, outputPath = DEFAULT_OUTPUT_PATH }: SrcProps,
 ): Promise<void> {
   const src = replaceAllTmpVarNames([
+    html?.head ? Array.isArray(html.head) ? html.head.join("") : html.head : "",
     css ? element("style", { children: css, closed: true }) : "",
-    html ? Array.isArray(html) ? html.join("") : html : "",
+    html?.body ? Array.isArray(html.body) ? html.body.join("") : html.body : "",
     js ? element("script", { children: js, closed: true }) : "",
   ].join(""));
 
