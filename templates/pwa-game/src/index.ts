@@ -15,7 +15,7 @@ import { domElementIds, Elements, functions, state } from "./variables.ts";
 import { defineSettingsPage } from "./pages/settings.ts";
 import { getStylesheet } from "./style.ts";
 import { initialState } from "./data-store/state.ts";
-import { defineGameLoop } from "./game/main-loop.ts";
+import { defineGameLoop } from "./game/game-loop.ts";
 
 export function getGameSrc(): SrcProps {
   return {
