@@ -1,4 +1,9 @@
-import { element, initVariables } from "./deps.ts";
+import {
+  element,
+  initVariables,
+  manifestLink,
+  registerServiceWorker,
+} from "./deps.ts";
 import { execFunc, statements } from "./deps.ts";
 import { headerElement } from "./elements/header.ts";
 import { defineGamePage } from "./pages/game.ts";
@@ -14,6 +19,7 @@ export function getGameSrc() {
     css: getStylesheet(),
     js: getScript(),
     html: [
+      manifestLink(),
       headerElement(),
       element(Elements.page, { tagProps: { id: domElementIds.page } }),
     ],
@@ -22,6 +28,8 @@ export function getGameSrc() {
 
 function getScript() {
   return statements(
+    // Register the service worker
+    registerServiceWorker(),
     // Declare functions
     defineHomePage(),
     defineSettingsPage(),
