@@ -3,6 +3,9 @@ import {
   initVariables,
   manifestLink,
   registerServiceWorker,
+  SrcProps,
+  titleTag,
+  viewportMeta,
 } from "./deps.ts";
 import { execFunc, statements } from "./deps.ts";
 import { headerElement } from "./elements/header.ts";
@@ -14,15 +17,22 @@ import { getStylesheet } from "./style.ts";
 import { initialState } from "./data-store/state.ts";
 import { defineGameLoop } from "./game/main-loop.ts";
 
-export function getGameSrc() {
+export function getGameSrc(): SrcProps {
   return {
     css: getStylesheet(),
     js: getScript(),
-    html: [
-      manifestLink(),
-      headerElement(),
-      element(Elements.page, { tagProps: { id: domElementIds.page } }),
-    ],
+    html: {
+      head: [
+        // htmlDoctype(), // The DOCTYPE breaks the CSS sizes without unit
+        titleTag("template"),
+        viewportMeta(),
+        manifestLink(),
+      ],
+      body: [
+        headerElement(),
+        element(Elements.page, { tagProps: { id: domElementIds.page } }),
+      ],
+    },
   };
 }
 
