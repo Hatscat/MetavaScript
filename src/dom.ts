@@ -3,7 +3,7 @@ import { findAvailableQuote, kebabCase } from "./utils/string.ts";
 export const INLINE_EVENT_ARG_NAME = "event";
 
 type ElementProps = {
-  tagProps?: Record<string, string>;
+  tagProps?: { [key: string]: string | undefined };
   children?: string | string[];
   closed?: boolean;
 };
@@ -15,7 +15,7 @@ export function element(
   const tag = `<${tagName}${
     tagProps
       ? " " + Object.entries(tagProps).map(([key, value]) =>
-        `${key}=${value}`
+        value ? `${key}=${value}` : key
       ).join(" ")
       : ""
   }>`;
