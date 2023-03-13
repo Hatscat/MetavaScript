@@ -29,11 +29,14 @@ export async function loadPublicFiles(
   targetPath = DEFAULT_OUTPUT_PATH,
 ): Promise<void> {
   for await (const dirEntry of Deno.readDir(sourcePath)) {
-    const entryPath = `${sourcePath}/${dirEntry.name}`;
+    const entrySourcePath = `${sourcePath}/${dirEntry.name}`;
+    const entryTargetPath = `${targetPath}/${dirEntry.name}`;
+
     if (dirEntry.isFile) {
-      await Deno.copyFile(entryPath, `${targetPath}/${dirEntry.name}`);
+      await Deno.mkdir(targetPath, { recursive: true });
+      await Deno.copyFile(entrySourcePath, entryTargetPath);
     } else {
-      await loadPublicFiles(entryPath, targetPath);
+      await loadPublicFiles(entrySourcePath, entryTargetPath);
     }
   }
 }
