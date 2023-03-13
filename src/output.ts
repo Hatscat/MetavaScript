@@ -23,3 +23,17 @@ export async function writeHtmlBundle(
 
   Deno.writeTextFile(`${outputPath}/index.html`, src, { create: true });
 }
+
+export async function loadPublicFiles(
+  sourcePath = "public",
+  targetPath = DEFAULT_OUTPUT_PATH,
+): Promise<void> {
+  for await (const dirEntry of Deno.readDir(sourcePath)) {
+    const entryPath = `${sourcePath}/${dirEntry.name}`;
+    if (dirEntry.isFile) {
+      await Deno.copyFile(entryPath, `${targetPath}/${dirEntry.name}`);
+    } else {
+      await loadPublicFiles(entryPath, targetPath);
+    }
+  }
+}
