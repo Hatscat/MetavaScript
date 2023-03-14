@@ -7,9 +7,9 @@ import {
   div,
   execFunc,
   font,
+  group,
   ifThen,
   prop,
-  scope,
   statements,
   sub,
   Text,
@@ -101,7 +101,7 @@ function drawTarget(): string {
     assign(
       prop(canvasContext, "shadowBlur"),
       div(
-        scope(sub(state.target.recoverTime, state.time)),
+        group(sub(state.target.recoverTime, state.time)),
         9,
       ),
     ),
