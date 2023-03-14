@@ -1,5 +1,9 @@
 # MetavaScript
 
+## [Module Documentation 📚](https://doc.deno.land/https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts)
+
+> <https://doc.deno.land/https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts>
+
 ## Usage
 
 ```ts
@@ -8,12 +12,15 @@
 export * from "https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts";
 ```
 
-## Setup
+## Contributing
+
+### Setup
 
 Requirement:
-[`Deno`](https://deno.land/manual@v1.24.1/getting_started/installation)
 
-## Commands
+- [`Deno`](https://deno.land/manual@v1.24.1/getting_started/installation)
+
+### Commands
 
 - test
 
