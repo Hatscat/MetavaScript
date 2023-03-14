@@ -2,7 +2,10 @@ import { assign, statements } from "./statements.ts";
 import { getNestedValue } from "./utils/object.ts";
 import { isRecord } from "./utils/type.ts";
 
-export enum ReservedCharacters {
+/**
+ * variable names whose values can be overridden in the output
+ */
+export enum ReservedVariables {
   EmptyArg = "_",
 }
 
@@ -53,7 +56,7 @@ export function initVariables(
 
 export function replaceAllTmpVarNames(
   sourceCode: string,
-  unavailableCharacters: string[] = Object.values(ReservedCharacters),
+  unavailableCharacters: string[] = Object.values(ReservedVariables),
 ): string {
   // Step 1: Compute short and long available variable names
   const availableChars = AVAILABLE_CHAR_FOR_VARIABLES.split("");

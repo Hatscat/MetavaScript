@@ -1,6 +1,6 @@
 import { removeFalsyItems } from "./utils/array.ts";
 import { Primitive, Printable } from "./utils/type.ts";
-import { ReservedCharacters } from "./variables.ts";
+import { ReservedVariables } from "./variables.ts";
 
 type FunctionDefinition = {
   args?: Printable[];
@@ -13,7 +13,7 @@ export function defineFunc(
   { args = [], body, safe = true }: FunctionDefinition,
 ): string {
   const enclosedArgs = args.length === 0
-    ? ReservedCharacters.EmptyArg
+    ? ReservedVariables.EmptyArg
     : args.length === 1 && !String(args[0]).includes("=")
     ? args[0]
     : `(${args})`;
