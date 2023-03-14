@@ -1,5 +1,5 @@
 import { assertEquals } from "../dev-deps.ts";
-import { add, decrement, increment, loop, quote, scope } from "./operations.ts";
+import { add, decrement, group, increment, loop, quote } from "./operations.ts";
 import { assign, execFunc } from "./statements.ts";
 
 Deno.test("loop()", () => {
@@ -26,8 +26,8 @@ Deno.test("quote()", () => {
   assertEquals(quote('hello "world"!'), `'hello "world"!'`);
 });
 
-Deno.test("scope()", () => {
-  assertEquals(scope("1+2"), "(1+2)");
-  assertEquals(scope("1+2", ")"), "(1+2)");
-  assertEquals(scope("a=3;return", "}"), "{a=3;return}");
+Deno.test("group()", () => {
+  assertEquals(group("1+2"), "(1+2)");
+  assertEquals(group("1+2", ")"), "(1+2)");
+  assertEquals(group("a=3;return", "}"), "{a=3;return}");
 });
