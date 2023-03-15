@@ -62,7 +62,7 @@ export function pow(...values: Printable[]): string {
 }
 
 /**
- * logical and(s)
+ * logical AND(s)
  * @example
  * // returns "1.2&&3&&true"
  * and(1.2, "3", true)
@@ -72,7 +72,7 @@ export function and(...values: Printable[]): string {
 }
 
 /**
- * logical or(s)
+ * logical OR(s)
  * @example
  * // returns "1.2||2||3||true"
  * or(1.2, "3", true)
@@ -82,7 +82,7 @@ export function or(...values: Printable[]): string {
 }
 
 /**
- * logical not
+ * logical NOT
  * @example
  * // returns "!1"
  * not(1)
@@ -92,7 +92,7 @@ export function not(value: Printable): string {
 }
 
 /**
- * bitwise and(s)
+ * bitwise AND(s)
  * @example
  * // returns "1.2&3&true"
  * band(1.2, "3", true)
@@ -102,7 +102,7 @@ export function band(...values: Printable[]): string {
 }
 
 /**
- * bitwise or(s)
+ * bitwise OR(s)
  * @example
  * // returns "1.2|3|true"
  * bor(1.2, "3", true)
@@ -112,7 +112,7 @@ export function bor(...values: Printable[]): string {
 }
 
 /**
- * bitwise not
+ * bitwise NOT
  * @example
  * // returns "~1"
  * bnot(1)
@@ -122,13 +122,33 @@ export function bnot(value: Printable): string {
 }
 
 /**
- * bitwise xor(s)
+ * bitwise XOR(s)
  * @example
  * // returns "1.2^3^true"
  * xor(1.2, "3", true)
  */
 export function xor(...values: Printable[]): string {
   return values.join("^");
+}
+
+/**
+ * left shift(s)
+ * @example
+ * // returns "1.2<<3<<true"
+ * leftShift(1.2, "3", true)
+ */
+export function leftShift(...values: Printable[]): string {
+  return values.join("<<");
+}
+
+/**
+ * right shift(s)
+ * @example
+ * // returns "1.2>>3>>true"
+ * rightShift(1.2, "3", true)
+ */
+export function rightShift(...values: Printable[]): string {
+  return values.join(">>");
 }
 
 /**
@@ -171,8 +191,12 @@ export function isDifferent(...values: Printable[]): string {
   return values.join("^");
 }
 
-// TODO: add missing operators like shift, etc. (from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)
-
+/**
+ * ternary condition
+ * @example
+ * // return "a>b?1:2"
+ * ifElse("a>b", 1, 2)
+ */
 export function ifElse(
   condition: Printable,
   ifTrue: Printable,
@@ -181,6 +205,12 @@ export function ifElse(
   return `${condition}?${ifTrue}:${ifFalse}`;
 }
 
+/**
+ * for loop
+ * @example
+ * // return "for(a=3;a--;log())compute()"
+ * loop({ init: assign("a", 3), condition: decrement("a"), body: "compute()", body2: "log()" })
+ */
 export function loop(
   { init, condition, body, body2 }: {
     condition: string | string[];
@@ -192,6 +222,18 @@ export function loop(
   return `for(${init ?? ""};${condition};${body2 ?? ""})${body ?? ""}`;
 }
 
+/**
+ * increment a variable
+ * @example
+ * // return "a++"
+ * increment("a")
+ * @example
+ * // return "a+=2"
+ * increment("a", 2)
+ * @example
+ * // return "++a"
+ * increment("a", 1, { before: true })
+ */
 export function increment(
   variable: string,
   step: Primitive = 1,
@@ -203,6 +245,18 @@ export function increment(
   return `${variable}+=${step}`;
 }
 
+/**
+ * decrement a variable
+ * @example
+ * // return "a--"
+ * decrement("a")
+ * @example
+ * // return "a-=2"
+ * decrement("a", 2)
+ * @example
+ * // return "--a"
+ * decrement("a", 1, { before: true })
+ */
 export function decrement(
   variable: string,
   step: Primitive = 1,
@@ -214,28 +268,64 @@ export function decrement(
   return `${variable}-=${step}`;
 }
 
+/**
+ * convert a value to boolean type
+ * @example
+ * // return "!!1"
+ * castBoolean(1)
+ */
 export function castBoolean(value: Primitive): string {
   return `!!${value}`;
 }
 
+/**
+ * convert a value to number type
+ * @example
+ * // return "+true"
+ * castNumber(true)
+ */
 export function castNumber(value: Primitive): string {
   return `+${value}`;
 }
 
+/**
+ * convert a value to integer
+ * @example
+ * // return "1.2|0"
+ * castInt(1.2)
+ */
 export function castInt(value: Primitive): string {
   return `${value}|0`;
 }
 
+/**
+ * round a float number
+ * @example
+ * // return "1.2+.5|0"
+ * round(1.2)
+ */
 export function round(value: Primitive): string {
   return `${value}+.5|0`;
 }
 
+/**
+ * negate a value
+ * @example
+ * // return "-a"
+ * minus("a")
+ */
 export function minus(value: Primitive): string {
   return `-${value}`;
 }
 
+/**
+ * Function constructor
+ * @example
+ * // return "Function('a','b','return(a+b)')"
+ * funcConstructor(["a", "b"], output(add("a", "b")))
+ */
 export function funcConstructor(args: string[], body: string) {
-  return `Function(${args.map((a) => `'${a}'`)},${body})`;
+  return `Function(${args.map((a) => quote(a))},${quote(body)})`;
 }
 
 export function templateLiteral(
