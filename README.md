@@ -1,5 +1,8 @@
 # MetavaScript
 
+A **Metaprogramming** Deno module to produce minified `HTML`/`CSS`/`JavaScript`
+source code.
+
 ## [Module Documentation 📚](https://doc.deno.land/https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts)
 
 > <https://doc.deno.land/https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts>
