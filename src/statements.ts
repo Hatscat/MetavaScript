@@ -18,7 +18,7 @@ type FunctionDefinition = {
  * // returns "_=>42"
  * defineFunc({ body: 42, safe: false })
  * @example
- * // returns f=(a,b)=>b=a**a,a+b
+ * // returns "f=(a,b)=>b=a**a,a+b"
  * defineFunc({ name: "f", args: ["a", "b"], body: [assign("b", pow("a", "a")), add("a", "b")], safe: false })
  */
 export function defineFunc(
