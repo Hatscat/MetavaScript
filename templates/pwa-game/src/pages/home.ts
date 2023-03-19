@@ -4,8 +4,8 @@ import { domElementIds, Elements, functions } from "../variables.ts";
 
 export function defineHomePage() {
   return defineFunc(
-    functions.goToHomePage,
     {
+      name: functions.goToHomePage,
       body: statements(
         setInnerHtml(
           domElementIds.page,

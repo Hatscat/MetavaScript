@@ -1,16 +1,25 @@
 import { assertEquals } from "../dev-deps.ts";
-import { add, pow } from "./operations.ts";
+import { add, pow, sub } from "./operations.ts";
 import { assign, defineFunc, execFunc, ifThen } from "./statements.ts";
 
 Deno.test("defineFunc()", () => {
   assertEquals(
-    defineFunc("a", {
+    defineFunc({
+      name: "a",
       body: 42,
     }),
     "a=_=>(42)",
   );
   assertEquals(
-    defineFunc("f", {
+    defineFunc({
+      body: 42,
+      safe: false,
+    }),
+    "_=>42",
+  );
+  assertEquals(
+    defineFunc({
+      name: "f",
       args: ["a", "b"],
       body: [assign("b", pow("a", "a")), add("a", "b")],
       safe: false,
@@ -30,7 +39,8 @@ Deno.test("execFunc()", () => {
 
   assertEquals(
     execFunc(
-      defineFunc("f", {
+      defineFunc({
+        name: "f",
         args: ["n"],
         body: add("n", "n"),
         safe: false,
@@ -41,6 +51,14 @@ Deno.test("execFunc()", () => {
   );
 
   assertEquals(execFunc("function t(){i++}"), "(function t(){i++})()");
+
+  assertEquals(
+    execFunc(
+      defineFunc({ args: ["x", "y"], body: sub("x", "y"), safe: false }),
+      [1, 2],
+    ),
+    "((x,y)=>x-y)(1,2)",
+  );
 });
 
 Deno.test("ifThen()", () => {

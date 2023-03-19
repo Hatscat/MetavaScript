@@ -13,7 +13,8 @@ import { gameOverLoop } from "./game-over-loop.ts";
 import { playLoop } from "./play-loop.ts";
 
 export function defineGameLoop() {
-  return defineFunc(functions.gameLoop, {
+  return defineFunc({
+    name: functions.gameLoop,
     args: [params.time],
     body: statements(
       // loop logic

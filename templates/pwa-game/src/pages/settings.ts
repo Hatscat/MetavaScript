@@ -4,8 +4,8 @@ import { domElementIds, Elements, functions } from "../variables.ts";
 
 export function defineSettingsPage() {
   return defineFunc(
-    functions.goToSettingsPage,
     {
+      name: functions.goToSettingsPage,
       body: statements(
         setInnerHtml(domElementIds.page, [
           element(Elements.button, {

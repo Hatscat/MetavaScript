@@ -149,7 +149,7 @@ function mutator(state: State, action: Action): string {
     case ActionType.MoveBullets: {
       return execFunc(
         prop(state.player.bullets, "forEach"),
-        defineFunc(null, {
+        defineFunc({
           args: [params.item],
           body: increment(prop(params.item, "x"), config.bullet.speed),
           safe: false,
@@ -168,7 +168,7 @@ function mutator(state: State, action: Action): string {
     case ActionType.CollideBullets: {
       return execFunc(
         prop(state.player.bullets, "forEach"),
-        defineFunc(null, {
+        defineFunc({
           args: [params.item],
           body: ifThen(
             doesTheBulletHitTheTarget(params.item),
@@ -190,7 +190,7 @@ function mutator(state: State, action: Action): string {
         state.player.bullets,
         execFunc(
           prop(state.player.bullets, "filter"),
-          defineFunc(null, {
+          defineFunc({
             args: [params.item],
             body: shouldTheBulletBeKept(params.item),
             safe: false,

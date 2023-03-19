@@ -73,7 +73,7 @@ function drawBullets(): string {
     ),
     execFunc(
       prop(state.player.bullets, "forEach"),
-      defineFunc(null, {
+      defineFunc({
         args: [params.item],
         body: execFunc(prop(canvasContext, "fillText"), [
           config.bullet.icon,
