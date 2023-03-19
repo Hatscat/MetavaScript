@@ -1,5 +1,8 @@
 import { findAvailableQuote, kebabCase } from "./utils/string.ts";
 
+/**
+ * the argument name for inline event
+ */
 export const INLINE_EVENT_ARG_NAME = "event";
 
 type ElementProps = {
