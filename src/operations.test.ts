@@ -1,6 +1,13 @@
 import { assertEquals } from "../dev-deps.ts";
-import { add, decrement, group, increment, loop, quote } from "./operations.ts";
-import { assign, execFunc } from "./statements.ts";
+import {
+  add,
+  decrement,
+  funcConstructor,
+  group,
+  increment,
+  loop,
+} from "./operations.ts";
+import { assign, execFunc, output } from "./statements.ts";
 
 Deno.test("loop()", () => {
   const x = "x", y = "y", z = "z";
@@ -18,16 +25,19 @@ Deno.test("loop()", () => {
   );
 });
 
-Deno.test("quote()", () => {
-  assertEquals(quote("hello world!"), "'hello world!'");
-  assertEquals(quote("hello world!", "'"), "'hello world!'");
-  assertEquals(quote("hello world!", '"'), '"hello world!"');
-  assertEquals(quote("hello world!", "`"), "`hello world!`");
-  assertEquals(quote('hello "world"!'), `'hello "world"!'`);
-});
-
 Deno.test("group()", () => {
   assertEquals(group("1+2"), "(1+2)");
   assertEquals(group("1+2", ")"), "(1+2)");
   assertEquals(group("a=3;return", "}"), "{a=3;return}");
+});
+
+Deno.test("funcConstructor()", () => {
+  assertEquals(
+    funcConstructor([], output(42, { safe: false })),
+    "Function('return 42')",
+  );
+  assertEquals(
+    funcConstructor(["a", "b"], output(add("a", "b"))),
+    "Function('a','b','return(a+b)')",
+  );
 });

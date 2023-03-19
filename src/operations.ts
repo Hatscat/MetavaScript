@@ -1,4 +1,4 @@
-import { findAvailableQuote } from "./utils/string.ts";
+import { Text } from "./primitives.ts";
 import { Primitive, Printable } from "./utils/type.ts";
 
 /**
@@ -325,9 +325,17 @@ export function minus(value: Primitive): string {
  * funcConstructor(["a", "b"], output(add("a", "b")))
  */
 export function funcConstructor(args: string[], body: string) {
-  return `Function(${args.map((a) => quote(a))},${quote(body)})`;
+  return `Function(${args.reduce((argsStr, a) => argsStr + Text(a) + ",", "")}${
+    Text(body)
+  })`;
 }
 
+/**
+ * String template literal
+ * @example
+ * // returns "`hello ${name}`!"
+ * templateLiteral(["hello ", "!"], ["name"])
+ */
 export function templateLiteral(
   stringParts: string[],
   ...keys: Printable[]
@@ -338,11 +346,18 @@ export function templateLiteral(
   }\``;
 }
 
-export function quote(text: string, border?: '"' | "'" | "`"): string {
-  const q = border ?? findAvailableQuote(text);
-  return `${q}${text}${q}`;
-}
-
+/**
+ * container for arbitrary expressions
+ * @example
+ * // returns "3*(1+2)"
+ * mul(3, group(add(1, 2)))
+ * @example
+ * // returns "(a,b,c)"
+ * group(["a", "b", "c"])
+ * @example
+ * // returns "{a;b}"
+ * group(statements("a", "b", "c"), "}")
+ */
 export function group(content: Printable, border: ")" | "}" = ")"): string {
   return `${border === ")" ? "(" : "{"}${content}${border}`;
 }
