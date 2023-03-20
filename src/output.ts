@@ -18,7 +18,7 @@ const DEFAULT_OUTPUT_PATH = "dist";
 
 /**
  * utility function to write a Web App source code in a file
- * requires `--allow-write` option
+ * @requires --allow-write option
  * @example
  * // write "<title>template</title><style>h1{text-align:center}</style><h1 id=h><script>h.innerHTML='hello!'</script>" in the "dist/index.html" file
  * writeHtmlBundle({
@@ -51,7 +51,8 @@ export async function writeHtmlBundle(
 
 /**
  * utility function to copy all files from a folder to the Web App source code bundle folder
- * requires `--allow-read` and `--allow-write` options
+ * @requires --allow-read option
+ * @requires --allow-write option
  */
 export async function loadPublicFiles(
   sourcePath = "public",
