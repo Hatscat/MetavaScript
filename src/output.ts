@@ -1,6 +1,9 @@
 import { element } from "./dom.ts";
 import { replaceAllTmpVarNames } from "./variables.ts";
 
+/**
+ * Web App source code properties
+ */
 export type SrcProps = {
   css?: string;
   html?: {
@@ -13,6 +16,24 @@ export type SrcProps = {
 
 const DEFAULT_OUTPUT_PATH = "dist";
 
+/**
+ * utility function to write a Web App source code in a file
+ * requires `--allow-write` option
+ * @example
+ * // write "<title>template</title><style>h1{text-align:center}</style><h1 id=h><script>h.innerHTML='hello!'</script>" in the "dist/index.html" file
+ * writeHtmlBundle({
+ *   css: formatStylesheet({ h1: { textAlign: "center" } }),
+ *   js: setInnerHtml("h", Text("hello!")),
+ *   html: {
+ *     head: [
+ *       titleTag("Title"),
+ *     ],
+ *     body: [
+ *       element("h1", { tagProps: { id: "h" } }),
+ *     ],
+ *   }
+ * })
+ */
 export async function writeHtmlBundle(
   { css, html, js, outputPath = DEFAULT_OUTPUT_PATH }: SrcProps,
 ): Promise<void> {
@@ -28,6 +49,10 @@ export async function writeHtmlBundle(
   Deno.writeTextFile(`${outputPath}/index.html`, src, { create: true });
 }
 
+/**
+ * utility function to copy all files from a folder to the Web App source code bundle folder
+ * requires `--allow-read` and `--allow-write` options
+ */
 export async function loadPublicFiles(
   sourcePath = "public",
   targetPath = DEFAULT_OUTPUT_PATH,
