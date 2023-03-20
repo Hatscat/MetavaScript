@@ -14,14 +14,30 @@ const AVAILABLE_CHAR_FOR_VARIABLES =
 
 const TMP_VAR_EDGE = "$$";
 
+/**
+ * recursive type to represent nested variable collection
+ */
 export type VarTree = {
   [key: string]: string | VarTree;
 };
 
+/**
+ * temporary variable name generator
+ * @example
+ * // returns "$$state.player.hp$$"
+ * generateTmpVarName("state.player.hp")
+ * generateTmpVarName("state", "player", "hp")
+ */
 export function generateTmpVarName(...keysPath: string[]): string {
   return `${TMP_VAR_EDGE}${keysPath.join(".")}${TMP_VAR_EDGE}`;
 }
 
+/**
+ * returns the inputted variable collection filled with temporary names in values
+ * @example
+ * // returns { state: "$$state$$", element: { canvas: "$$element.canvas$$", header: "$$element.header$$" }}
+ * provideTmpVarNames({ state: "", element: { canvas: "", header: "" } })
+ */
 export function provideTmpVarNames<T extends VarTree>(
   record: T,
   ..._keys: string[]
@@ -37,6 +53,14 @@ export function provideTmpVarNames<T extends VarTree>(
   );
 }
 
+/**
+ * generates statements of variable initializations with provided values
+ * @example
+ * // returns "pX=3;pY=2"
+ * const varNames = { player: { x: "pX", y: "pY" } }
+ * const varValues = { player: { x: 3, y: 2 } }
+ * initVariables(varNames, varValues)
+ */
 export function initVariables(
   varNames: VarTree,
   varValues: VarTree,
@@ -54,6 +78,10 @@ export function initVariables(
   );
 }
 
+/**
+ * post process function to replace all temporary variables names by the shortest names possible,
+ * the most used ones are the shortest (1 character)
+ */
 export function replaceAllTmpVarNames(
   sourceCode: string,
   unavailableCharacters: string[] = Object.values(ReservedVariables),
