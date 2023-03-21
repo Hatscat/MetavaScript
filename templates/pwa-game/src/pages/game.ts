@@ -67,11 +67,6 @@ function canvasSetup() {
   );
 }
 
-// function createBgImg(): string {
-//   // backgroundImage=new OffscreenCanvas(w*2,h);(x=backgroundImage.getContext`2d`).fillStyle='#fff';for(i=3e3;i--;x.fillRect(r%w,r/w,2,2),x.fillRect(w+r%w,r/w,2,2))r=Math.random()*w*h
-//   return;
-// }
-
 function pointerMoveHandler(): string {
   return dispatch(actions.setPointer(prop(INLINE_EVENT_ARG_NAME, "offsetY")));
 }
