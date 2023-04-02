@@ -76,10 +76,35 @@ export function execFunc(
  * assign("a", "b", "c", 42)
  * @example
  * // returns "a+=2"
- * assign(add("a", ""), "2")
+ * assign("a", add("a", 2))
  */
-export function assign(...keyValues: [...string[], Primitive]): string {
-  return keyValues.join("=");
+export function assign(key: string, value: Primitive): string;
+export function assign(
+  key: string,
+  ...values: [...string[], Primitive]
+): string;
+export function assign(
+  key: string,
+  ...values: [Primitive] | [...string[], Primitive]
+): string {
+  const value = String(values[0]);
+  const remainingValues = values.length === 1
+    ? null
+    : values.length === 2
+    ? [values[1]] as [Primitive]
+    : values.slice(1) as [...string[], Primitive];
+  // https://regex101.com/r/1D24WE/1
+  const matches = new RegExp(`^${key}(\\*\\*|<<|>>|[+\\-*\\/%&|])(.+)`).exec(
+    value,
+  );
+  if (matches) {
+    return `${key}${matches[1]}=${
+      remainingValues ? assign(matches[2], ...remainingValues) : matches[2]
+    }`;
+  }
+  return `${key}=${
+    remainingValues ? assign(value, ...remainingValues) : value
+  }`;
 }
 
 /**

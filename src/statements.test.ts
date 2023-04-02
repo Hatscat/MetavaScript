@@ -69,3 +69,9 @@ Deno.test("ifThen()", () => {
     "if(state==0){a=8;b=9;render(a,b)}",
   );
 });
+
+Deno.test("assign()", () => {
+  assertEquals(assign("a", add("a", 2)), "a+=2");
+  assertEquals(assign("a", pow("a", assign("b", "3"))), "a**=b=3");
+  assertEquals(assign("c", "b", "a", sub("a", 4)), "c=b=a-=4");
+});
