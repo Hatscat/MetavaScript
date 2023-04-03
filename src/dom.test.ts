@@ -8,6 +8,7 @@ import {
   incrementOuterHtml,
   setInnerHtml,
   setOuterHtml,
+  swapElements,
 } from "./dom.ts";
 
 Deno.test("element()", () => {
@@ -95,6 +96,13 @@ Deno.test("incrementOuterHtml()", () => {
       element("p", { children: "hey!", closed: true }),
     ),
     "elementId.outerHTML+='<p>hey!</p>'",
+  );
+});
+
+Deno.test("swapElements()", () => {
+  assertEquals(
+    swapElements("a", "b"),
+    "[a.outerHTML,$.outerHTML]=[($=b).outerHTML,a.outerHTML]",
   );
 });
 

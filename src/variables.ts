@@ -7,6 +7,7 @@ import { isRecord } from "./utils/type.ts";
  */
 export enum ReservedVariables {
   EmptyArg = "_",
+  TemporaryVar = "$",
 }
 
 const AVAILABLE_CHAR_FOR_VARIABLES =

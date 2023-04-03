@@ -1,4 +1,5 @@
 import { findAvailableQuote, kebabCase } from "./utils/string.ts";
+import { ReservedVariables } from "./variables.ts";
 
 /**
  * the argument name for inline event
@@ -113,6 +114,20 @@ export function incrementOuterHtml(
     return `${elementId}.outerHTML+=${quote}${outerHtml}${quote}`;
   }
   return `${elementId}.outerHTML+='${outerHtml.replaceAll("'", "\\'")}'`;
+}
+
+/**
+ * swap 2 HTML Element positions
+ * @example
+ * // returns "[a.outerHTML,$.outerHTML]=[($=b).outerHTML,a.outerHTML]"
+ * swapElements("a", "b")
+ */
+export function swapElements(
+  elementId_1: string,
+  elementId_2: string,
+  tmpVarName = ReservedVariables.TemporaryVar,
+): string {
+  return `[${elementId_1}.outerHTML,${tmpVarName}.outerHTML]=[(${tmpVarName}=${elementId_2}).outerHTML,${elementId_1}.outerHTML]`;
 }
 
 /**
