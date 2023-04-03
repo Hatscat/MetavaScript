@@ -78,6 +78,44 @@ export function setOuterHtml(
 }
 
 /**
+ * increment the innerHTML of an Element
+ * @example
+ * // returns "elementId.innerHTML+='<p>hey!</p>'"
+ * incrementInnerHtml("elementId", element("p", { children: "hey", closed: true }))
+ */
+export function incrementInnerHtml(
+  elementId: string,
+  html: string | string[],
+): string {
+  const innerHtml = Array.isArray(html) ? html.join("") : html;
+  const quote = findAvailableQuote(innerHtml);
+
+  if (quote) {
+    return `${elementId}.innerHTML+=${quote}${innerHtml}${quote}`;
+  }
+  return `${elementId}.innerHTML+='${innerHtml.replaceAll("'", "\\'")}'`;
+}
+
+/**
+ * append some HTML to an Element
+ * @example
+ * // returns "elementId.outerHTML+='<p>hey!</p>'"
+ * incrementOuterHtml("elementId", element("p", { children: "hey", closed: true }))
+ */
+export function incrementOuterHtml(
+  elementId: string,
+  html: string | string[],
+): string {
+  const outerHtml = Array.isArray(html) ? html.join("") : html;
+  const quote = findAvailableQuote(outerHtml);
+
+  if (quote) {
+    return `${elementId}.outerHTML+=${quote}${outerHtml}${quote}`;
+  }
+  return `${elementId}.outerHTML+='${outerHtml.replaceAll("'", "\\'")}'`;
+}
+
+/**
  * generates a CSS Stylesheet ready to be inserted in a Style tag (or nested)
  * @example
  * // returns "*:hover{padding-left:4}div{display:flex;justify-content:center}.center{text-align:center}@media(orientation:portrait){#root>*{flex-direction:column}}"

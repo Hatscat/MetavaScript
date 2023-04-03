@@ -4,6 +4,8 @@ import {
   font,
   formatStyle,
   formatStylesheet,
+  incrementInnerHtml,
+  incrementOuterHtml,
   setInnerHtml,
   setOuterHtml,
 } from "./dom.ts";
@@ -73,6 +75,26 @@ Deno.test("setOuterHtml()", () => {
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
     "elementId.outerHTML='<a href=#>link'",
+  );
+});
+
+Deno.test("incrementInnerHtml()", () => {
+  assertEquals(
+    incrementInnerHtml(
+      "elementId",
+      element("p", { children: "hey!", closed: true }),
+    ),
+    "elementId.innerHTML+='<p>hey!</p>'",
+  );
+});
+
+Deno.test("incrementOuterHtml()", () => {
+  assertEquals(
+    incrementOuterHtml(
+      "elementId",
+      element("p", { children: "hey!", closed: true }),
+    ),
+    "elementId.outerHTML+='<p>hey!</p>'",
   );
 });
 
