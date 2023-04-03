@@ -42,8 +42,8 @@ export function element(
 /**
  * set the innerHTML of an Element
  * @example
- * // returns "body.innerHTML='<a href=#>link'"
- * setInnerHtml("body", element("a", { tagProps: { href: "#" }, children: "link" }))
+ * // returns "elementId.innerHTML='<a href=#>link'"
+ * setInnerHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link" }))
  */
 export function setInnerHtml(
   elementId: string,
@@ -56,6 +56,25 @@ export function setInnerHtml(
     return `${elementId}.innerHTML=${quote}${innerHtml}${quote}`;
   }
   return `${elementId}.innerHTML='${innerHtml.replaceAll("'", "\\'")}'`;
+}
+
+/**
+ * set the outerHTML of an Element
+ * @example
+ * // returns "elementId.outerHTML='<a href=#>link</a>'"
+ * setOuterHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link", closed: true }))
+ */
+export function setOuterHtml(
+  elementId: string,
+  html: string | string[],
+): string {
+  const outerHtml = Array.isArray(html) ? html.join("") : html;
+  const quote = findAvailableQuote(outerHtml);
+
+  if (quote) {
+    return `${elementId}.outerHTML=${quote}${outerHtml}${quote}`;
+  }
+  return `${elementId}.outerHTML='${outerHtml.replaceAll("'", "\\'")}'`;
 }
 
 /**

@@ -5,6 +5,7 @@ import {
   formatStyle,
   formatStylesheet,
   setInnerHtml,
+  setOuterHtml,
 } from "./dom.ts";
 
 Deno.test("element()", () => {
@@ -38,10 +39,10 @@ Deno.test("element()", () => {
 Deno.test("setInnerHtml()", () => {
   assertEquals(
     setInnerHtml(
-      "body",
+      "elementId",
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
-    "body.innerHTML='<a href=#>link'",
+    "elementId.innerHTML='<a href=#>link'",
   );
 
   assertEquals(
@@ -62,6 +63,16 @@ Deno.test("setInnerHtml()", () => {
       element("p", { children: "Hello '\"`World`\"'!", closed: true }),
     ),
     "b.innerHTML='<p>Hello \\'\"`World`\"\\'!</p>'",
+  );
+});
+
+Deno.test("setOuterHtml()", () => {
+  assertEquals(
+    setOuterHtml(
+      "elementId",
+      element("a", { tagProps: { href: "#" }, children: "link" }),
+    ),
+    "elementId.outerHTML='<a href=#>link'",
   );
 });
 
