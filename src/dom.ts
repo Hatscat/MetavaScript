@@ -125,7 +125,7 @@ export function incrementOuterHtml(
 export function swapElements(
   elementId_1: string,
   elementId_2: string,
-  tmpVarName = ReservedVariables.TemporaryVar,
+  tmpVarName: string = ReservedVariables.TemporaryVar,
 ): string {
   return `[${elementId_1}.outerHTML,${tmpVarName}.outerHTML]=[(${tmpVarName}=${elementId_2}).outerHTML,${elementId_1}.outerHTML]`;
 }
