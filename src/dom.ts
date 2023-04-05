@@ -42,92 +42,98 @@ export function element(
 
 /**
  * set the innerHTML of an Element
+ * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
  * // returns "elementId.innerHTML='<a href=#>link'"
  * setInnerHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link" }))
  */
 export function setInnerHtml(
-  elementId: string,
+  element: string,
   html: string | string[],
 ): string {
   const innerHtml = Array.isArray(html) ? html.join("") : html;
   const quote = findAvailableQuote(innerHtml);
 
   if (quote) {
-    return `${elementId}.innerHTML=${quote}${innerHtml}${quote}`;
+    return `${element}.innerHTML=${quote}${innerHtml}${quote}`;
   }
-  return `${elementId}.innerHTML='${innerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.innerHTML='${innerHtml.replaceAll("'", "\\'")}'`;
 }
 
 /**
  * set the outerHTML of an Element
+ * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
  * // returns "elementId.outerHTML='<a href=#>link</a>'"
  * setOuterHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link", closed: true }))
  */
 export function setOuterHtml(
-  elementId: string,
+  element: string,
   html: string | string[],
 ): string {
   const outerHtml = Array.isArray(html) ? html.join("") : html;
   const quote = findAvailableQuote(outerHtml);
 
   if (quote) {
-    return `${elementId}.outerHTML=${quote}${outerHtml}${quote}`;
+    return `${element}.outerHTML=${quote}${outerHtml}${quote}`;
   }
-  return `${elementId}.outerHTML='${outerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.outerHTML='${outerHtml.replaceAll("'", "\\'")}'`;
 }
 
 /**
  * increment the innerHTML of an Element
+ * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
  * // returns "elementId.innerHTML+='<p>hey!</p>'"
  * incrementInnerHtml("elementId", element("p", { children: "hey", closed: true }))
  */
 export function incrementInnerHtml(
-  elementId: string,
+  element: string,
   html: string | string[],
 ): string {
   const innerHtml = Array.isArray(html) ? html.join("") : html;
   const quote = findAvailableQuote(innerHtml);
 
   if (quote) {
-    return `${elementId}.innerHTML+=${quote}${innerHtml}${quote}`;
+    return `${element}.innerHTML+=${quote}${innerHtml}${quote}`;
   }
-  return `${elementId}.innerHTML+='${innerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.innerHTML+='${innerHtml.replaceAll("'", "\\'")}'`;
 }
 
 /**
  * append some HTML to an Element
+ * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
  * // returns "elementId.outerHTML+='<p>hey!</p>'"
  * incrementOuterHtml("elementId", element("p", { children: "hey", closed: true }))
  */
 export function incrementOuterHtml(
-  elementId: string,
+  element: string,
   html: string | string[],
 ): string {
   const outerHtml = Array.isArray(html) ? html.join("") : html;
   const quote = findAvailableQuote(outerHtml);
 
   if (quote) {
-    return `${elementId}.outerHTML+=${quote}${outerHtml}${quote}`;
+    return `${element}.outerHTML+=${quote}${outerHtml}${quote}`;
   }
-  return `${elementId}.outerHTML+='${outerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.outerHTML+='${outerHtml.replaceAll("'", "\\'")}'`;
 }
 
 /**
  * swap 2 HTML Element positions
+ * @param element1 a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
+ * @param element2 another variable name referring to an HTML element.
  * @example
- * // returns "[a.outerHTML,$.outerHTML]=[($=b).outerHTML,a.outerHTML]"
- * swapElements("a", "b")
+ * // returns "[elementId.outerHTML,$.outerHTML]=[($=ev.target).outerHTML,elementId.outerHTML]"
+ * swapElements("elementId", "ev.target")
  */
 export function swapElements(
-  elementId_1: string,
-  elementId_2: string,
+  element1: string,
+  element2: string,
   tmpVarName: string = ReservedVariables.TemporaryVar,
 ): string {
-  return `[${elementId_1}.outerHTML,${tmpVarName}.outerHTML]=[(${tmpVarName}=${elementId_2}).outerHTML,${elementId_1}.outerHTML]`;
+  return `[${element1}.outerHTML,${tmpVarName}.outerHTML]=[(${tmpVarName}=${element2}).outerHTML,${element1}.outerHTML]`;
 }
 
 /**
